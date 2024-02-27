@@ -9,7 +9,7 @@ CREATE TABLE usuario (
     rol VARCHAR(15) NOT NULL,
     estado VARCHAR(10) NOT NULL,
     fechaActivacionUsuario TIMESTAMP NOT NULL,
-    fechaDesactivacionUsuario TIMESTAMP NOT NULL,
+    fechaDesactivacionUsuario TIMESTAMP NOT NULL
 );
 
 ALTER TABLE usuario ADD CONSTRAINT CheckRolUsuario CHECK (rol IN ('administrador', 'cliente'));
@@ -27,7 +27,7 @@ CREATE TABLE administrador (
 CREATE TABLE cliente (
     idCliente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     numdocumento INT UNIQUE NULL,
-    idUsuario VARCHAR(100) NOT NULL,
+    idUsuario VARCHAR(255) NOT NULL,
     numContacto INT(25) NOT NULL,
     sexo VARCHAR(10) NULL,
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
@@ -46,8 +46,27 @@ CREATE TABLE producto (
     calificacionProducto INT NULL
 );
 
-ALTER TABLE producto ADD CO NSTRAINT CheckGeneroProduc CHECK (genero IN ('femenino', 'masculino', 'neutro'))
-ALTER TABLE producto ADD CO NSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5))
+ALTER TABLE producto ADD CONSTRAINT CheckGeneroProduc CHECK (genero IN ('femenino', 'masculino', 'neutro'));
+ALTER TABLE producto ADD CONSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5));
+
+CREATE TABLE tipoDiseno (
+    idTipoDiseno INT PRIMARY KEY NOT NULL,
+    imagen BOOLEAN NULL,
+    archivoImagen BLOB NULL,
+    texto BOOLEAN NULL,
+    fraseTexto VARCHAR(255) NULL,
+    fuenteTexto VARCHAR(50) NULL,
+    colorTexto VARCHAR(100) NULL,
+    tamanoTexto FLOAT NULL
+);
+
+CREATE TABLE diseno (
+    idDiseno INT PRIMARY KEY NOT NULL,
+    idTipoDiseno INT NOT NULL,
+    restricciones VARCHAR(255) NULL,
+    calificacionDiseno INT NULL,
+    FOREIGN KEY (idTipoDiseno) REFERENCES tipoDiseno(idTipoDiseno)
+);
 
 CREATE TABLE personalizacion (
     idPersonalizacion INT PRIMARY KEY NOT NULL,
@@ -59,42 +78,29 @@ CREATE TABLE personalizacion (
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
-CREATE TABLE diseno (
-    idDiseno INT PRIMARY KEY NOT NULL,
-    idTipoDiseno INT NOT NULL,
-    restricciones VARCHAR(255) NULL,
-    calificacionDiseno INT NULL,
-    FOREIGN KEY (idTipoDiseno) REFERENCES tipoDiseno(idTipoDiseno)
-);
-
 ALTER TABLE diseno ADD CONSTRAINT checkCalificacionDiseno CHECK (calificacionDiseno IN (1, 2, 3, 4, 5));
 
-CREATE TABLE tipoDiseno (
-    idTipoDiseno INT PRIMARY KEY NOT NULL,
-    imagen BOOLEAN NULL,
-    archivoImagen BLOB NULL,
-    texto BOOLEAN NULL,
-    fraseTexto VARCHAR(255) NULL,
-    fuenteTexto VARCHAR(50) NULL,
-    colorTexto VARCHAR(100) NULL,
-    tamanoTexto FLOAT NULL,
-    CONSTRAINT checkImagenDiseno CHECK (imagen = True OR archivoImagen IS NULL),
-    CONSTRAINT checkFraseTextoDiseno CHECK (texto = True OR fraseTexto IS NULL),
-    CONSTRAINT checkFuenteTextoDiseno CHECK (texto = True OR fuenteTexto IS NULL),
-    CONSTRAINT checkColorTextoDiseno CHECK (texto = True OR colorTexto IS NULL),
-    CONSTRAINT checkTamanoTextoDiseno CHECK (texto = True OR tamanoTexto IS NULL)
+-- ------------------- EN PRUEBA ------------------- --
+ALTER TABLE tipoDiseno ADD CONSTRAINT checkImagenTextoDiseno CHECK (
+    (imagen = True AND texto = False) OR
+    (imagen = False AND texto = True) OR
+    (imagen IS NULL AND texto IS NULL));
+ALTER TABLE tipoDiseno ADD CONSTRAINT checkImagenDiseno CHECK (
+    imagen = True AND archivoImagen IS NOT NULL
+);
+ALTER TABLE tipoDiseno ADD CONSTRAINT checkTextoDiseno CHECK (
+    (texto = True AND (fraseTexto IS NOT NULL AND
+                       fuenteTexto IS NOT NULL AND
+                       colorTexto IS NOT NULL AND
+                       tamanoTexto IS NOT NULL))
 );
 
-CREATE TABLE impresiones (
-    idImpresion INT PRIMARY KEY NOT NULL,
-    idProducto INT NOT NULL,
-    idCliente INT NOT NULL,
-    fechaHoraImpresion TIMESTAMP NOT NULL,
-    compraProducto BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
-    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
-    CONSTRAINT chekCompraProdImpr CHECK (compraProducto = IF(EXISTS (SELECT 1 FROM compra WHERE compra.idProducto = idProducto), TRUE, FALSE))
-);
+-- ALTER TABLE tipoDiseno ADD CONSTRAINT checkImagenDiseno CHECK (imagen = True OR archivoImagen IS NULL);
+-- ALTER TABLE tipoDiseno ADD CONSTRAINT checkFraseTextoDiseno CHECK (texto = True OR fraseTexto IS NULL);
+-- ALTER TABLE tipoDiseno ADD CONSTRAINT checkFuenteTextoDiseno CHECK (texto = True OR fuenteTexto IS NULL);
+-- ALTER TABLE tipoDiseno ADD CONSTRAINT checkColorTextoDiseno CHECK (texto = True OR colorTexto IS NULL);
+-- ALTER TABLE tipoDiseno ADD CONSTRAINT checkTamanoTextoDiseno CHECK (texto = True OR tamanoTexto IS NULL);
+-- ------------------- -- ------ ------------------- --
 
 CREATE TABLE descuentos (
     idDescuento INT PRIMARY KEY NOT NULL,
@@ -139,9 +145,10 @@ CREATE TABLE compra (
     idCarritoCompra INT NOT NULL,
     calificacionCompra INT NULL,
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
-    FOREIGN KEY (idCarritoCompra) REFERENCES carritoCompra(idCarritoCompra),
-    CONSTRAINT checkCalificacionCompra CHECK (calificacionCompra IN (1, 2, 3, 4, 5) OR calificacionCompra IS NULL)
+    FOREIGN KEY (idCarritoCompra) REFERENCES carritoCompra(idCarritoCompra)
 );
+
+ALTER TABLE compra ADD CONSTRAINT checkCalificacionCompra CHECK (calificacionCompra IN (1, 2, 3, 4, 5) OR calificacionCompra IS NULL);
 
 CREATE TABLE productosComprados (
     idProductosComprados INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -151,6 +158,20 @@ CREATE TABLE productosComprados (
     FOREIGN KEY (idCompra) REFERENCES compra(idCompra),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
+
+CREATE TABLE impresiones (
+    idImpresion INT PRIMARY KEY NOT NULL,
+    idProducto INT NOT NULL,
+    idCliente INT NOT NULL,
+    fechaHoraImpresion TIMESTAMP NOT NULL,
+    compraProducto BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
+);
+
+-- ------------------- EN PRUEBA ------------------- --
+ALTER TABLE impresiones ADD CONSTRAINT chekCompraProdImpr CHECK (compraProducto = IF(EXISTS (SELECT 1 FROM compra WHERE compra.idProducto = idProducto), TRUE, FALSE));
+-- ------------------- -- ------ ------------------- --
 
 CREATE TABLE pedido (
     idPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
