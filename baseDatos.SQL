@@ -18,7 +18,7 @@ ALTER TABLE usuario ADD CONSTRAINT CheckEstadoUsuario CHECK (estado IN ('activo'
 CREATE TABLE administrador (
     idAdmin INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     idUsuario VARCHAR(100) NOT NULL,
-    permisFestionUsuario BOOLEAN NOT NULL,
+    permisGestionUsuario BOOLEAN NOT NULL,
     permisoOrdenProducto BOOLEAN NOT NULL,
     permisDescuentoProducto BOOLEAN NOT NULL,
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
@@ -36,6 +36,7 @@ CREATE TABLE cliente (
 CREATE TABLE producto (
     idProducto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     tipoProducto VARCHAR(100) NOT NULL,
+    categoriaProducto VARCHAR(255) NOT NULL,
     nombreProducto VARCHAR(150) NOT NULL,
     imagenProd BLOB NULL,
     genero VARCHAR(10) NOT NULL,
@@ -47,7 +48,7 @@ CREATE TABLE producto (
 );
 
 ALTER TABLE producto ADD CONSTRAINT CheckGeneroProduc CHECK (genero IN ('femenino', 'masculino', 'neutro'));
-ALTER TABLE producto ADD CONSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5));
+ALTER TABLE producto ADD CONSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5, NULL));
 
 CREATE TABLE tipoDiseno (
     idTipoDiseno INT PRIMARY KEY NOT NULL,
@@ -154,9 +155,11 @@ CREATE TABLE productosComprados (
     idProductosComprados INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     idCompra INT NOT NULL,
     idProducto INT NOT NULL,
+    idPersonalizacion INT NOT NULL, 
     cantidadComprada INT NOT NULL,
     FOREIGN KEY (idCompra) REFERENCES compra(idCompra),
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    FOREIGN KEY (idPersonalizacion) REFERENCES personalizacion(idPersonalizacion)
 );
 
 CREATE TABLE impresiones (
@@ -173,39 +176,15 @@ CREATE TABLE impresiones (
 ALTER TABLE impresiones ADD CONSTRAINT chekCompraProdImpr CHECK (compraProducto = IF(EXISTS (SELECT 1 FROM compra WHERE compra.idProducto = idProducto), TRUE, FALSE));
 -- ------------------- -- ------ ------------------- --
 
-CREATE TABLE pedido (
-    idPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idCliente INT NOT NULL,
-    idDireccion INT NOT NULL,
-    idCompra INT NOT NULL,
-    idMetodoTranspo INT NOT NULL,
-    estadoPedido VARCHAR(100) NOT NULL,
-    fechaHoraEntrega TIMESTAMP NULL,
-    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
-    FOREIGN KEY (idDireccion) REFERENCES direccionCliente(idDireccion),
-    FOREIGN KEY (idCompra) REFERENCES compra(idCompra),
-    FOREIGN KEY (idMetodoTranspo) REFERENCES metodoTransporte(idMetodoTransp),
-    CONSTRAINT checkEstadoPedido CHECK (calificacionPedido IN('Preparacion', 'Despachado', 'En camino', 'Entregado'))
-);
-
 CREATE TABLE direccionCliente (
     idDireccion INT PRIMARY KEY NOT NULL,
     idCliente INT NOT NULL,
-    idPedido INT NOT NULL,
     pais VARCHAR(100) NOT NULL,
     ciudad VARCHAR(100) NOT NULL,
     barrio VARCHAR(200) NOT NULL,
     direccion VARCHAR(255) NOT NULL,
     infoExtra VARCHAR(255) NULL,
-    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
-    FOREIGN KEY (idPedido) REFERENCES pedido(idPedido)
-);
-
-CREATE TABLE metodoTransporte (
-    idMetodoTransp INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idDomiciliario INT NOT NULL,
-    nombreTranspo VARCHAR(150) NOT NULL,
-    vehiculo VARCHAR(100) NOT NULL
+    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
 
 CREATE TABLE domiciliario (
@@ -215,3 +194,26 @@ CREATE TABLE domiciliario (
     edad INT NOT NULL
 );
  
+CREATE TABLE metodoTransporte (
+    idMetodoTransp INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idDomiciliario INT NOT NULL,
+    nombreTranspo VARCHAR(150) NOT NULL,
+    vehiculo VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE pedido (
+    idPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idCliente INT NOT NULL,
+    idDireccion INT NOT NULL,
+    idCompra INT NOT NULL,
+    idMetodoTranspo INT NOT NULL,
+    estadoPedido VARCHAR(100) NOT NULL,
+    fechaHoraEntrega TIMESTAMP NULL,
+    calificacionPedido VARCHAR(20) NOT NULL,
+    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
+    FOREIGN KEY (idDireccion) REFERENCES direccionCliente(idDireccion),
+    FOREIGN KEY (idCompra) REFERENCES compra(idCompra),
+    FOREIGN KEY (idMetodoTranspo) REFERENCES metodoTransporte(idMetodoTransp)
+);
+
+ALTER TABLE pedido ADD CONSTRAINT checkEstadoPedido CHECK (calificacionPedido IN('Preparacion', 'Despachado', 'En camino', 'Entregado'));
