@@ -1,7 +1,7 @@
 CREATE DATABASE Almacenamiento_Tienda;
 
 CREATE TABLE usuario (
-    idUsuario VARCHAR(255) PRIMARY KEY NOT NULL,
+    idUsuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     correoelectronico VARCHAR(255) UNIQUE NOT NULL,
     contrasena VARCHAR(255) NOT NULL,
     nombreUsuario VARCHAR(255) NOT NULL,
@@ -16,7 +16,7 @@ ALTER TABLE usuario ADD CONSTRAINT CheckRolUsuario CHECK (rol IN ('administrador
 ALTER TABLE usuario ADD CONSTRAINT CheckEstadoUsuario CHECK (estado IN ('activo', 'inactivo'));
 
 CREATE TABLE administrador (
-    idAdmin INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idAdmin VARCHAR(255) PRIMARY KEY NOT NULL,
     idUsuario VARCHAR(100) NOT NULL,
     permisGestionUsuario BOOLEAN NOT NULL,
     permisoOrdenProducto BOOLEAN NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE administrador (
 );
 
 CREATE TABLE cliente (
-    idCliente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idCliente VARCHAR(255)CHAR(255) PRIMARY KEY NOT NULL,
     numdocumento INT UNIQUE NULL,
     idUsuario VARCHAR(255) NOT NULL,
     numContacto INT(25) NOT NULL,
@@ -35,6 +35,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE producto (
     idProducto INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
     tipoProducto VARCHAR(100) NOT NULL,
     categoriaProducto VARCHAR(255) NOT NULL,
     nombreProducto VARCHAR(150) NOT NULL,
@@ -44,7 +45,8 @@ CREATE TABLE producto (
     cantidadStock INT NOT NULL,
     precioVenta FLOAT NOT NULL,
     descripcionProducto VARCHAR(255) NULL,
-    calificacionProducto INT NULL
+    calificacionProducto INT NULL,
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin)
 );
 
 ALTER TABLE producto ADD CONSTRAINT CheckGeneroProduc CHECK (genero IN ('femenino', 'masculino', 'neutro'));
@@ -64,9 +66,11 @@ CREATE TABLE tipoDiseno (
 CREATE TABLE diseno (
     idDiseno INT PRIMARY KEY NOT NULL,
     idTipoDiseno INT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
     restricciones VARCHAR(255) NULL,
     calificacionDiseno INT NULL,
-    FOREIGN KEY (idTipoDiseno) REFERENCES tipoDiseno(idTipoDiseno)
+    FOREIGN KEY (idTipoDiseno) REFERENCES tipoDiseno(idTipoDiseno),
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin)
 );
 
 CREATE TABLE personalizacion (
@@ -106,26 +110,30 @@ ALTER TABLE tipoDiseno ADD CONSTRAINT checkTextoDiseno CHECK (
 CREATE TABLE descuentos (
     idDescuento INT PRIMARY KEY NOT NULL,
     idProducto INT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
     porcentajeDescuento DECIMAL NOT NULL,
     fechaInicioDescuento TIMESTAMP NOT NULL,
     fechaFinDescuento TIMESTAMP NULL,
     descripcionDescuento VARCHAR(255) NULL,
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin)
 );
 
 CREATE TABLE promociones (
     idPromocion INT PRIMARY KEY NOT NULL,
     idProducto INT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
     cantidadMinProd INT NOT NULL,
     cantidadMaxProd INT NOT NULL,
     fechaInicioPromo TIMESTAMP NOT NULL,
     fechaFinPromo TIMESTAMP NULL,
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin)
 );
 
 CREATE TABLE carritoCompra (
     idCarritoCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idCliente INT,
+    idCliente VARCHAR(255) NOT NULL,
     totalCarrito DECIMAL NOT NULL,
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
 );
@@ -142,7 +150,7 @@ CREATE TABLE cantidadProdCarrito (
 
 CREATE TABLE compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idCliente INT NOT NULL,
+    idCliente VARCHAR(255) NOT NULL,
     idCarritoCompra INT NOT NULL,
     calificacionCompra INT NULL,
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
@@ -165,7 +173,7 @@ CREATE TABLE productosComprados (
 CREATE TABLE impresiones (
     idImpresion INT PRIMARY KEY NOT NULL,
     idProducto INT NOT NULL,
-    idCliente INT NOT NULL,
+    idCliente VARCHAR(255) NOT NULL,
     fechaHoraImpresion TIMESTAMP NOT NULL,
     compraProducto BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
@@ -178,7 +186,7 @@ ALTER TABLE impresiones ADD CONSTRAINT chekCompraProdImpr CHECK (compraProducto 
 
 CREATE TABLE direccionCliente (
     idDireccion INT PRIMARY KEY NOT NULL,
-    idCliente INT NOT NULL,
+    idCliente VARCHAR(255) NOT NULL,
     pais VARCHAR(100) NOT NULL,
     ciudad VARCHAR(100) NOT NULL,
     barrio VARCHAR(200) NOT NULL,
@@ -203,17 +211,19 @@ CREATE TABLE metodoTransporte (
 
 CREATE TABLE pedido (
     idPedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    idCliente INT NOT NULL,
+    idCliente VARCHAR(255) NOT NULL,
     idDireccion INT NOT NULL,
     idCompra INT NOT NULL,
     idMetodoTranspo INT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
     estadoPedido VARCHAR(100) NOT NULL,
     fechaHoraEntrega TIMESTAMP NULL,
     calificacionPedido VARCHAR(20) NOT NULL,
     FOREIGN KEY (idCliente) REFERENCES cliente(idCliente),
     FOREIGN KEY (idDireccion) REFERENCES direccionCliente(idDireccion),
     FOREIGN KEY (idCompra) REFERENCES compra(idCompra),
-    FOREIGN KEY (idMetodoTranspo) REFERENCES metodoTransporte(idMetodoTransp)
+    FOREIGN KEY (idMetodoTranspo) REFERENCES metodoTransporte(idMetodoTransp),
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin)
 );
 
 ALTER TABLE pedido ADD CONSTRAINT checkEstadoPedido CHECK (calificacionPedido IN('Preparacion', 'Despachado', 'En camino', 'Entregado'));
