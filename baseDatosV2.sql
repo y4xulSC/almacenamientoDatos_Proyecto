@@ -44,25 +44,6 @@ CREATE TABLE cliente (
     FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
 
-CREATE TABLE producto (
-    idProducto INT AUTO_INCREMENT NOT NULL,
-    idAdmin VARCHAR(255) NOT NULL,
-    tipoProducto VARCHAR(100) NOT NULL,
-    categoriaProducto VARCHAR(255) NOT NULL,
-    nombreProducto VARCHAR(150) NOT NULL,
-    imagenProd BLOB NULL,
-    genero VARCHAR(10) NOT NULL,
-    talla VARCHAR(10) NOT NULL,
-    cantidadStock INT NOT NULL,
-    precioVenta FLOAT NOT NULL,
-    descripcionProducto VARCHAR(255) NULL,
-    calificacionProducto INT NULL,
-    PRIMARY KEY (idProducto),
-    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin),
-    CONSTRAINT CheckGeneroProduc CHECK (genero IN ('Femenino', 'Masculino', 'Neutro')),
-    CONSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5, NULL))
-);
-
 CREATE TABLE diseno (
     idDiseno INT NOT NULL,
     idAdmin VARCHAR(255) NULL,
@@ -83,13 +64,34 @@ CREATE TABLE diseno (
 CREATE TABLE personalizacion (
     idPersonalizacion INT NOT NULL,
     idDiseno INT NOT NULL,
-    idProducto INT NOT NULL,
-    idCliente VARCHAR(100) NOT NULL,
+    -- idProducto INT NOT NULL, -- Se revierte la relación
+    -- idCliente VARCHAR(100) NOT NULL, -- Se consulta desde el diseño?
     descripcionExtra VARCHAR(255) NULL,
     PRIMARY KEY (idPersonalizacion),
-    FOREIGN KEY (idDiseno) REFERENCES diseno(idDiseno),
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
-    FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
+    FOREIGN KEY (idDiseno) REFERENCES diseno(idDiseno)
+    -- FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    -- FOREIGN KEY (idCliente) REFERENCES cliente(idCliente)
+);
+
+CREATE TABLE producto (
+    idProducto INT AUTO_INCREMENT NOT NULL,
+    idAdmin VARCHAR(255) NOT NULL,
+    idPersonalizacion INT NOT NULL,
+    tipoProducto VARCHAR(100) NOT NULL,
+    categoriaProducto VARCHAR(255) NOT NULL,
+    nombreProducto VARCHAR(150) NOT NULL,
+    imagenProd BLOB NULL,
+    genero VARCHAR(10) NOT NULL,
+    talla VARCHAR(10) NOT NULL,
+    cantidadStock INT NOT NULL,
+    precioVenta FLOAT NOT NULL,
+    descripcionProducto VARCHAR(255) NULL,
+    calificacionProducto INT NULL,
+    PRIMARY KEY (idProducto),
+    FOREIGN KEY (idAdmin) REFERENCES administrador(idAdmin),
+    FOREIGN KEY (idPersonalizacion) REFERENCES personalizacion(idPersonalizacion),
+    CONSTRAINT CheckGeneroProduc CHECK (genero IN ('Femenino', 'Masculino', 'Neutro')),
+    CONSTRAINT checkCalificacionProducto CHECK (calificacionProducto IN (1, 2, 3, 4, 5, NULL))
 );
 
 -- ------------------- EN PRUEBA ------------------- --
