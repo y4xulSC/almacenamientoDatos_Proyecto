@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 	edad INT NOT NULL,
 	nombre VARCHAR(255) NOT NULL,
 	sexo ENUM ('Hombre','Mujer') NOT NULL,
-	telefono INT NOT NULL,
+	telefono BIGINT NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	contrasena VARCHAR(255) NOT NULL,
 	rol ENUM('Cliente', 'Administrador') NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS visita (
 -- HERENCIAS DE PRODUCTO
 
 CREATE TABLE IF NOT EXISTS disenoPersonalizado (
-	idDisenoPer INT NOT NULL,
+	idDisenoPer INT NOT NULL AUTO_INCREMENT,
 	idProducto INT NOT NULL,
     idUsuario INT NOT NULL,
     tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS disenoPersonalizado (
 );
 
 CREATE TABLE IF NOT EXISTS disenoPredeterminado (
-	idDisenoPre INT NOT NULL,
+	idDisenoPre INT NOT NULL AUTO_INCREMENT,
     idProducto INT NOT NULL,
     nombrePersonalizacion VARCHAR (50) NOT NULL,
     tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL,
@@ -67,13 +67,13 @@ CREATE TABLE IF NOT EXISTS disenoPredeterminado (
 );
 
 CREATE TABLE IF NOT EXISTS promociones (
-	idPromocion INT NOT NULL,
+	idPromocion INT NOT NULL AUTO_INCREMENT,
 	idProducto INT NOT NULL,
 	fechaInicio DATE NOT NULL,
 	horaInicio TIME NOT NULL,
 	fechaFin DATE NULL,
 	horaFin TIME NULL,
-	descuento DECIMAL NOT NULL,
+	descuento DECIMAL(10,2) NOT NULL,
 	PRIMARY KEY(idPromocion),
 	FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
@@ -89,6 +89,10 @@ CREATE TABLE IF NOT EXISTS pedido (
 	fechaHoraEntrega DATETIME NULL,
 	total DECIMAL(15,2) NOT NULL,
 	estado ENUM('pendiente', 'procesado', 'enviado', 'entregado') DEFAULT 'Pendiente' NOT NULL,
+		-- Pendiente: El envío del pedido esta por ser aceptado
+		-- Procesado: El envío del pedido es aceptado por la entidad que realizará el proceso para enviarlo de un lugar A a un lugar B
+		-- Enviado: la entidad envía el pedido a la dirección proporcionada por un user
+		-- PrimerEntregado: El pedido llega a la dirección del usuario
 	PRIMARY KEY (idPedido),
 	FOREIGN KEY (idCliente) REFERENCES usuario(id)
 	-- FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
@@ -112,7 +116,6 @@ CREATE TABLE IF NOT EXISTS productoPedido (
 
 CREATE TABLE IF NOT EXISTS departamento (
 	id INT NOT NULL AUTO_INCREMENT,
-	idPedido INT NOT NULL,
 	nombre VARCHAR(60) NOT NULL,
 	PRIMARY KEY (id)
 );
