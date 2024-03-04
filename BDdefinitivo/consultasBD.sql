@@ -44,7 +44,10 @@ WHERE
     -- AND (DATE(p.fechaHoraSolicita) >= '2024-03-01' AND DATE(p.fechaHoraSolicita) <= '2024-03-02') -- Consulta por rango de fechas
 ;
 -- ------------------------------------------------------ -------- -- -- ------- ------------------------------------------------------ --
--- ---- Consulta de vista a producto de inteacción ---- --
+
+
+
+-- ---- Consulta de vista a producto de interacción ---- --
 SELECT 
 	v.fechaHoraVisita AS 'Fecha y hora de la vista',
 	u.nombre AS 'Nombre de usuario',
@@ -60,8 +63,100 @@ FROM
     producto AS pr
 WHERE 
 	v.idUsuario = u.id 
-    AND v.idProducto = pr.idProducto;
+    AND v.idProducto = pr.idProducto
+;
 -- ---- -------- -- ----- - -------- -- ---------- ---- --
+
+
+
+-- --- Productos con más vistas --- --
+SELECT 
+	-- * 
+    COUNT(pr.idProducto),
+    pr.nombre
+FROM 
+	visita AS v, 
+    producto AS pr
+WHERE 
+	v.idProducto = pr.idProducto
+GROUP BY
+	pr.idProducto,
+    pr.nombre
+	
+    -- --- Consultar el producto más visto --- --
+	-- HAVING
+	-- 	COUNT(pr.idProducto) = (
+	-- 		SELECT MAX(MaxVistasProd) FROM (
+	-- 			SELECT COUNT(pr.idProducto)  AS MaxVistasProd
+	-- 			FROM visita AS v, producto AS pr
+	-- 			WHERE v.idProducto = pr.idProducto
+	-- 			GROUP BY pr.idProducto
+	-- 		) AS subConsultaProdMasVisto
+	-- 	)
+    -- --- --------- -- -------- --- ----- --- --
+    
+ORDER BY
+	COUNT(pr.idProducto) DESC
+;
+-- --- --------- --- --- ------ --- --
+
+
+
+-- ---- Consulta de los producto más comprados ---- --
+SELECT 
+	COUNT(pp.idPedido),
+    pr.nombre
+FROM 
+    producto AS pr,
+    productoPedido AS pp
+WHERE
+	pr.idProducto = pp.idProducto
+GROUP BY
+	pp.idProducto,
+    pr.nombre
+    
+	-- --- Consultar el producto más comprado --- --
+	-- HAVING
+	-- 	COUNT(pr.idProducto) = (
+	-- 		SELECT MAX(MaxVistasProd) FROM (
+	-- 			SELECT COUNT(pp.idProducto)  AS MaxVistasProd
+	-- 			FROM producto AS pr, productoPedido AS pp
+	--  			WHERE pp.idProducto = pr.idProducto
+	--  			GROUP BY pp.idProducto
+	--  		) AS subConsultaProdMasCompra
+	--  	)
+    -- --- --------- -- -------- --- -------- --- --
+    
+ORDER BY
+	COUNT(pp.idPedido) DESC,
+    pr.nombre ASC
+;
+-- ---- Consulta de los producto más comprados ---- --
+
+
+
+-- --- Consulta de productos comprados --- --
+SELECT 
+	v.fechaHoraVisita AS 'Fecha y hora de la vista',
+	u.nombre AS 'Nombre de usuario',
+    u.sexo AS 'Sexo',
+    u.edad AS 'Edad',
+    pr.nombre AS 'Nombre del producto',
+    pr.categoria AS 'Tipo de producto',
+    pr.genero AS 'Genero producto',
+    pr.precio AS 'Precio x unidad'
+FROM 
+	visita AS v, 
+    usuario AS u, 
+    producto AS pr
+WHERE 
+	v.idUsuario = u.id 
+    AND v.idProducto = pr.idProducto
+    -- AND u.nombre LIKE '%usuario cliente mujer%' -- Consultar compras por nombre del usuario
+    -- AND u.id = 4 -- Consultar compras por id del cliente
+    -- AND pr.nombre LIKE '%CozyWa%' -- Consulta de compras x el nombre de un producto
+;
+-- --- -------- -- --------- --------- --- --
 
 
 
