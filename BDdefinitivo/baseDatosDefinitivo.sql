@@ -95,9 +95,9 @@ CREATE TABLE IF NOT EXISTS productoPedido (
 -- TABLA DEPARTAMENTO
 
 CREATE TABLE IF NOT EXISTS departamento (
-	id INT NOT NULL AUTO_INCREMENT,
+	idDepartamento INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(60) NOT NULL,
-	PRIMARY KEY (id)
+	PRIMARY KEY (idDepartamento)
 );
 
 -- TABLA CIUDAD
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS ciudad ( -- Una FOREIGN KEY es una pertenencia.
 	nombre VARCHAR(60),
 	codigoPostal INT NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (idDepartamento) REFERENCES departamento(id)
+	FOREIGN KEY (idDepartamento) REFERENCES departamento(idDepartamento)
 );
 
 -- TABLA detalleEnvio
@@ -141,14 +141,25 @@ CREATE TABLE IF NOT EXISTS comentario ( -- Corregido
 -- Mostrar todas las tablas
 
 DESCRIBE 
-usuario
+rol
+-- usuario
 -- producto
+-- visita
+-- promocion
 -- pedido
 -- productoPedido
--- ciudad
 -- departamento
+-- ciudad
 -- detalleEnvio
+-- comentario
 ;
+
+
+
+
+
+
+
 
 
 -- DISEÑOS DE PRODUCTO
