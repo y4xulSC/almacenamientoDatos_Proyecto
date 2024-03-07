@@ -1,3 +1,10 @@
+-- --- Valores Rol --- --
+INSERT INTO rol () VALUES
+	(1, 'Administrador'),
+    (2, 'Cliente')
+;
+-- --- Valores Rol --- --
+
 -- --------------------- Nuevos valores corregidos --------------------- --
 INSERT INTO usuario () VALUES 
 	(1, 21, "Yáxul Cárdenas", "Hombre", 3059460082, "yaxul.cardenas@uao.edu.co", 123, "Administrador"),
@@ -12,6 +19,35 @@ INSERT INTO usuario () VALUES
 	(10, 49, "Carmen Ruiz", "Mujer", 3216482927, "carmen.ruiz@gmail.com", 11000, "Cliente"),
 	(11, 43, "Diana López", "Mujer", 3508132345, "diana.lopez@gmail.com", 11001, "Cliente"),
 	(12, 51, "Elena Martínez", "Mujer", 3128463630, "elena.martinez@gmail.com", 11010, "Cliente")
+;
+
+INSERT INTO disenoPersonalizado () VALUES
+	(1, 6, 3, "Texto", "1.png", "No", "Este producto no admite personalización."),
+	(2, 9, 4, "Texto", "2.png", "No", "Este producto no admite personalización."),
+	(3, 12, 4, "Imagen", "3.png", "No", "Este producto no admite personalización."),
+	(4, 9, 5, "Imagen", "4.tpng", "En aprobacion", "La personalización está siendo evaluada."),
+	(5, 11, 5, "Imagen", "5.png", "En aprobacion", "La personalización está siendo evaluada."),
+	(6, 5, 7, "Texto", "6.png", "En aprobacion", "La personalización está siendo evaluada."),
+	(7, 4, 8, "Imagen", "7.png", "En aprobacion", "La personalización está siendo evaluada."),
+	(8, 7, 9, "Imagen", "8.png", "Si", "Este producto admite personalización completa."),
+	(9, 9, 9, "Imagen", "9.png", "En aprobacion", "La personalización está siendo evaluada."),
+	(10, 11, 10, "Texto", "10.png", "No", "Este producto no admite personalización."),
+	(11, 8, 12, "Texto", "11.png", "Si", "Este producto admite personalización completa.")
+;
+
+INSERT INTO disenoPredeterminado () VALUES
+	(1, 5, "Espíritu Animal", "Imagen", "1pre.png", "Elige un animal que represente tu espíritu y personalízalo en tu prenda."),
+	(2, 10, "Constelación Zodiacal", "Imagen", "2pre.png", "Añade la constelación de tu signo zodiacal."),
+	(3, 9, "Iniciales Artísticas", "Texto", "3pre.png", "Iniciales estilizadas con un toque artístico único."),
+	(4, 12, "Huella Digital", "Texto", "4pre.png", "Imprime tu huella digital en un diseño exclusivo."),
+	(5, 12, "Mapa Estelar", "Texto", "5pre.png", "Personaliza con el mapa estelar de una fecha y lugar especial."),
+	(6, 8, "Mantra Personal", "Texto", "6pre.png", "Añade un mantra personal o una palabra poderosa."),
+	(7, 8, "Paisaje Soñado", "Imagen", "7pre.png", "Un paisaje que siempre has querido visitar o que te inspira tranquilidad."),
+	(8, 8, "Código QR", "Texto", "8pre.png", "Un código QR personal que enlace a tu canción o sitio web favorito."),
+	(9, 10, "Arte Pixelado", "Imagen", "9pre.png", "Un diseño retro pixelado de tu videojuego o personaje favorito."),
+	(10, 1, "Símbolo Significativo", "Imagen", "10pre.png", "Un símbolo que tenga un significado especial para ti."),
+	(11, 5, "Eco-Mensaje", "Texto", "11pre.png", "Un mensaje de conciencia ambiental o sustentabilidad."),
+	(12, 11, "Galaxia Personalizada", "Imagen", "12pre.png", "Un fragmento del cosmos que sientes que te representa.")
 ;
 
 INSERT INTO producto () VALUES
@@ -50,35 +86,6 @@ INSERT INTO visita () VALUES
 	(18, 4, 11, "2024-03-07  22:47:04"),
 	(19, 5, 12, "2024-03-08  05:59:04"),
 	(20, 9, 12, "2024-03-08  13:11:04")
-;
-
-INSERT INTO disenoPersonalizado () VALUES
-	(1, 6, 3, "Texto", "1.png", "No", "Este producto no admite personalización."),
-	(2, 9, 4, "Texto", "2.png", "No", "Este producto no admite personalización."),
-	(3, 12, 4, "Imagen", "3.png", "No", "Este producto no admite personalización."),
-	(4, 9, 5, "Imagen", "4.tpng", "En aprobacion", "La personalización está siendo evaluada."),
-	(5, 11, 5, "Imagen", "5.png", "En aprobacion", "La personalización está siendo evaluada."),
-	(6, 5, 7, "Texto", "6.png", "En aprobacion", "La personalización está siendo evaluada."),
-	(7, 4, 8, "Imagen", "7.png", "En aprobacion", "La personalización está siendo evaluada."),
-	(8, 7, 9, "Imagen", "8.png", "Si", "Este producto admite personalización completa."),
-	(9, 9, 9, "Imagen", "9.png", "En aprobacion", "La personalización está siendo evaluada."),
-	(10, 11, 10, "Texto", "10.png", "No", "Este producto no admite personalización."),
-	(11, 8, 12, "Texto", "11.png", "Si", "Este producto admite personalización completa.")
-;
-
-INSERT INTO disenoPredeterminado () VALUES
-	(1, 5, "Espíritu Animal", "Imagen", "1pre.png", "Elige un animal que represente tu espíritu y personalízalo en tu prenda."),
-	(2, 10, "Constelación Zodiacal", "Imagen", "2pre.png", "Añade la constelación de tu signo zodiacal."),
-	(3, 9, "Iniciales Artísticas", "Texto", "3pre.png", "Iniciales estilizadas con un toque artístico único."),
-	(4, 12, "Huella Digital", "Texto", "4pre.png", "Imprime tu huella digital en un diseño exclusivo."),
-	(5, 12, "Mapa Estelar", "Texto", "5pre.png", "Personaliza con el mapa estelar de una fecha y lugar especial."),
-	(6, 8, "Mantra Personal", "Texto", "6pre.png", "Añade un mantra personal o una palabra poderosa."),
-	(7, 8, "Paisaje Soñado", "Imagen", "7pre.png", "Un paisaje que siempre has querido visitar o que te inspira tranquilidad."),
-	(8, 8, "Código QR", "Texto", "8pre.png", "Un código QR personal que enlace a tu canción o sitio web favorito."),
-	(9, 10, "Arte Pixelado", "Imagen", "9pre.png", "Un diseño retro pixelado de tu videojuego o personaje favorito."),
-	(10, 1, "Símbolo Significativo", "Imagen", "10pre.png", "Un símbolo que tenga un significado especial para ti."),
-	(11, 5, "Eco-Mensaje", "Texto", "11pre.png", "Un mensaje de conciencia ambiental o sustentabilidad."),
-	(12, 11, "Galaxia Personalizada", "Imagen", "12pre.png", "Un fragmento del cosmos que sientes que te representa.")
 ;
 
 INSERT INTO promociones () VALUES 
@@ -148,16 +155,21 @@ INSERT INTO detalleEnvio () VALUES
 ;
 
 INSERT INTO comentario () VALUES
-	(1,	1, "El pedido llegó a tiempo y en buen estado", 4),
-	(2,	2, "Excelente servicio, la comida deliciosa", 5),
-	(3,	3, NULL, 5),
-	(4,	4, "El pedido fue correcto y completo", 5),
-	(5,	5, "El tiempo de entrega fue un poco largo", 4),
-	(6,	6, NULL, NULL),
-	(7,	7, "El pedido llegó en perfectas condiciones", 5),
-	(8,	8, "Buena calidad de los productos", 4),
-	(9,	9, NULL, NULL),
-	(10, 10, NULL, 4)
+	(1, 9,	1, "El pedido llegó a tiempo y en buen estado", 4),
+    (2, 9,	4, "El pedido llegó a tiempo y en buen estado", 4),
+	(3, 3, 12, "Excelente servicio, la comida deliciosa", 5),
+	(4, 7, 3, NULL, 5),
+    (5, 7, 5, NULL, 5),
+    (6, 7, 10, NULL, 5),
+	(7, 9, 11, "El pedido fue correcto y completo", 5),
+	(8, 5, 11, "El tiempo de entrega fue un poco largo", 4),
+    (9, 5, 12, "El tiempo de entrega fue un poco largo", 4),
+	(10, 5, 5, NULL, NULL),
+	(11, 12, 2, "El pedido llegó en perfectas condiciones", 5),
+	(12, 10, 1, "Buena calidad de los productos", 4),
+    (13, 10, 6, "Buena calidad de los productos", 4),
+	(14, 3, 10, NULL, NULL),
+	(15, 5, 6, NULL, 4)
 ;
 -- --------------------- ------ ------- ---------- --------------------- --
 

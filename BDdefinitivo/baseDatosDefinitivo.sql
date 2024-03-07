@@ -1,19 +1,26 @@
-CREATE DATABASE Proyecto;
-USE Proyecto;
+CREATE DATABASE Proyecto2;
+USE Proyecto2;
 
 -- Tabla Usuario
 
+CREATE TABLE IF NOT EXISTS rol ( -- Nueva tabla
+	id INT NOT NULL AUTO_INCREMENT,
+    nombreRol ENUM('Administrador', 'Cliente'), -- Administrador, Cliente y los que se desee agregar
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS usuario (
 	id INT NOT NULL AUTO_INCREMENT, -- Evita que se repitan valores
-    -- nombreUsuario VARCHAR(100) UNIQUE,
-	edad INT NOT NULL,
+    nombreUsuario VARCHAR(100) UNIQUE,
 	nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefono BIGINT NOT NULL,
+    edad INT NOT NULL,
 	sexo ENUM ('Hombre','Mujer') NOT NULL,
-	telefono BIGINT NOT NULL,
-	email VARCHAR(255) NOT NULL,
 	contrasena VARCHAR(255) NOT NULL,
-	rol ENUM('Cliente', 'Administrador') NOT NULL,
-	PRIMARY KEY (id)
+    idRol INT NOT NULL, -- Nueva
+	PRIMARY KEY (id),
+    FOREIGN KEY (idRol) REFERENCES rol(id) -- Nueva
 );
 
 -- Tabla producto
@@ -22,11 +29,16 @@ CREATE TABLE IF NOT EXISTS producto (
 	idProducto INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(255) NOT NULL,
 	precio DECIMAL(10,2) NOT NULL,
-	categoria ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL,
-	talla VARCHAR(10) NOT NULL,
-	genero ENUM('Hombre','Mujer','Niño'),
-    retricciones VARCHAR(200) NULL,
-	PRIMARY KEY (idProducto) 
+    genero ENUM('Hombre','Mujer','Niño'),
+    categoria ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL,
+    talla VARCHAR(5) NOT NULL,
+	imagen BLOB NULL,
+    descripcion VARCHAR(200) NULL,
+    diseno BLOB NOT NULL, -- Nuevo
+	PRIMARY KEY (idProducto)
+    -- CONSTRAINT FKDisenoPersonalizado FOREIGN KEY (idDiseno) REFERENCES disenoPersonalizado(idDisenoPer) ON DELETE CASCADE, -- Nuevo (Se elimina por herencia parcial sin solapamiento)
+    -- CONSTRAINT FKDisenoPredeterminado FOREIGN KEY (idDiseno) REFERENCES disenoPredeterminado(idDisenoPre) ON DELETE NO ACTION -- Nuevo (Se elimina por herencia parcial sin solapamiento)
+    
 );
 
 CREATE TABLE IF NOT EXISTS visita (
@@ -37,33 +49,6 @@ CREATE TABLE IF NOT EXISTS visita (
     PRIMARY KEY (idVisita),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
-);
-
--- HERENCIAS DE PRODUCTO
-
-CREATE TABLE IF NOT EXISTS disenoPersonalizado (
-	idDisenoPer INT NOT NULL AUTO_INCREMENT,
-	idProducto INT NOT NULL,
-    idUsuario INT NOT NULL,
-    tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL,
-	graficaPerso BLOB NOT NULL,
-	personalizable ENUM('Sí', 'No', 'En aprobacion') NOT NULL DEFAULT 'En aprobacion',
-    descripcion TEXT NULL,
-	PRIMARY KEY (idDisenoPer),
-	CONSTRAINT disenoPersonalizadoProducto FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
-    CONSTRAINT disenoClientePers FOREIGN KEY (idUsuario) REFERENCES usuario(id)
-);
-
-CREATE TABLE IF NOT EXISTS disenoPredeterminado (
-	idDisenoPre INT NOT NULL AUTO_INCREMENT,
-    idProducto INT NOT NULL,
-    nombrePersonalizacion VARCHAR (50) NOT NULL,
-    tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL,
-    graficaPredeterminado BLOB NOT NULL,
-    descripcion TEXT NULL,
-	-- diseno TEXT NOT NULL,
-	PRIMARY KEY (idDisenoPre),
-	CONSTRAINT disenoPredeterminadoProducto FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
 CREATE TABLE IF NOT EXISTS promociones (
@@ -82,9 +67,7 @@ CREATE TABLE IF NOT EXISTS promociones (
 
 CREATE TABLE IF NOT EXISTS pedido (
 	idPedido INT NOT NULL AUTO_INCREMENT,
-	-- idProducto INT NOT NULL,
 	idCliente INT NOT NULL,
-	-- cantidad INT NOT NULL DEFAULT 0,
 	fechaHoraSolicita DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fechaHoraEntrega DATETIME NULL,
 	total DECIMAL(15,2) NOT NULL,
@@ -95,7 +78,6 @@ CREATE TABLE IF NOT EXISTS pedido (
 		-- PrimerEntregado: El pedido llega a la dirección del usuario
 	PRIMARY KEY (idPedido),
 	FOREIGN KEY (idCliente) REFERENCES usuario(id)
-	-- FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
 -- TABLA DE LA CANTIDAD DE PRODUCTOS EN EL PEDIDO
@@ -104,13 +86,11 @@ CREATE TABLE IF NOT EXISTS productoPedido (
 	idPedido INT NOT NULL,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    totalCantProd DECIMAL NOT NULL,
+    -- totalCantProd DECIMAL NOT NULL, -- Se elimina, se realiza por consulta
     PRIMARY KEY (idPedido, idProducto),
     FOREIGN KEY (idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
-
--- ALTER TABLE productopedido ADD COLUMN precioCantProd DECIMAL NOT NULL;
 
 -- TABLA DEPARTAMENTO
 
@@ -137,6 +117,7 @@ CREATE TABLE IF NOT EXISTS detalleEnvio (
 	id INT NOT NULL AUTO_INCREMENT,
 	idPedido INT NOT NULL,
 	idCiudad INT NOT NULL,
+    barrio VARCHAR(150) NOT NULL, -- Nuevo
 	calle VARCHAR(255) NOT NULL,
 	numero INT NOT NULL,
 	infoExtra VARCHAR(255) NOT NULL,
@@ -146,32 +127,54 @@ CREATE TABLE IF NOT EXISTS detalleEnvio (
 	FOREIGN KEY (idCiudad) REFERENCES ciudad(id)
 );
 
-CREATE TABLE IF NOT EXISTS comentario (
+CREATE TABLE IF NOT EXISTS comentario ( -- Corregido
 	idComentario INT NOT NULL AUTO_INCREMENT,
-    idPedido INT NOT NULL,
+    idCliente INT NOT NULL, -- Nuevo
+    idProducto INT NOT NULL, -- idPedido INT NOT NULL, -- Modificado
     comentario VARCHAR(200) NULL,
     calificacion ENUM('1','2','3','4','5') NULL,
     PRIMARY KEY (idComentario),
-    FOREIGN KEY (idPedido) REFERENCES pedido(idPedido)
+    FOREIGN KEY (idCliente) REFERENCES usuario(id), -- Nuevo
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto) -- FOREIGN KEY (idPedido) REFERENCES pedido(idPedido) -- Modificado
 );
 
 -- Mostrar todas las tablas
 
-DESCRIBE usuario;
-DESCRIBE producto;
--- DESCRIBE clienteProducto;
-DESCRIBE pedido;
-DESCRIBE ciudad;
-DESCRIBE departamento;
-DESCRIBE detalleEnvio;
+DESCRIBE 
+usuario
+-- producto
+-- pedido
+-- productoPedido
+-- ciudad
+-- departamento
+-- detalleEnvio
+;
 
--- Borrar tablas para luega modificarlas:
 
--- DROP TABLE usuario; -- ELIMINAR TABLA USUARIO
--- DROP TABLE pedido;
--- DROP TABLE detalleEnvio;
--- DROP DATABASE Proyecto;
+-- DISEÑOS DE PRODUCTO
 
--- Mostrar todas las tablas del proyecto
+-- CREATE TABLE IF NOT EXISTS disenoPersonalizado ( -- Se elimina
+-- 	idDisenoPer INT NOT NULL AUTO_INCREMENT,
+	-- idProducto INT NOT NULL, -- Se vincula en producto
+    -- idUsuario INT NOT NULL, -- Se elimina
+    -- tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL, -- Se elimina
+-- 	graficaPerso BLOB NOT NULL,
+-- 	personalizable ENUM('Sí', 'No', 'En aprobacion') NOT NULL DEFAULT 'En aprobacion',
+    -- descripcion TEXT NULL, -- Se elimina
+-- 	PRIMARY KEY (idDisenoPer)
+	-- CONSTRAINT disenoPersonalizadoProducto FOREIGN KEY (idProducto) REFERENCES producto(idProducto), -- Se vincula en producto
+    -- CONSTRAINT disenoClientePers FOREIGN KEY (idUsuario) REFERENCES usuario(id) -- Se vincula en producto
+-- );
 
-SHOW tables FROM proyecto;
+-- CREATE TABLE IF NOT EXISTS disenoPredeterminado ( -- Se elimina
+-- 	idDisenoPre INT NOT NULL AUTO_INCREMENT,
+    -- idProducto INT NOT NULL, -- Se vincula en producto
+-- 	nombrePersonalizacion VARCHAR (50) NOT NULL,
+-- 	categoria ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL, -- Nuevo (con dudas)
+-- 	talla VARCHAR(5) NOT NULL, -- Nuevo (con dudas)
+-- 	graficaPredeterminado BLOB NOT NULL,
+    -- tipoPersonalizacion ENUM('Imagen', 'Texto') NOT NULL, -- Se elimina
+    -- descripcion TEXT NULL, -- Se elimina
+-- 	PRIMARY KEY (idDisenoPre)
+	-- CONSTRAINT disenoPredeterminadoProducto FOREIGN KEY (idProducto) REFERENCES producto(idProducto) -- Se vincula en producto
+-- );

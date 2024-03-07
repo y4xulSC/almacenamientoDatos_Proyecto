@@ -1,6 +1,6 @@
 -- ------------------------------------------------------ Consulta de la factura ------------------------------------------------------ --
 SELECT 
-	p.idPedido AS 'Factura No',
+	p.idPedido AS Factura,
     p.fechaHoraSolicita AS 'Fecha de compra',
     u.nombre AS 'Nombre cliente',
     u.telefono AS 'Número contacto',
@@ -13,6 +13,13 @@ SELECT
     pp.cantidadProducto AS 'Cantidad producto',
     pr.precio AS 'Precio x unidad',
     prom.descuento AS 'Descuento aplicado',
+    -- ROUND(pp.cantidadProducto * (pr.precio -(pr.precio * (prom.descuento)/100)),2) AS 'Subtotal del producto',
+        -- ROUND(pp.cantidadProducto * (pr.precio - (pp)))
+    -- (SELECT SUM(ROUND(pp.cantidadProducto * (pr.precio - (pr.precio * (prom.descuento)/100)),2)) 
+	-- 	FROM productoPedido AS pp, producto AS pr, promociones AS prom, pedido AS p
+	-- 	WHERE pp.idProducto = pr.idProducto AND prom.descuento IS NOT NULL AND Factura = p.idPedido
+	-- 	GROUP BY pp.cantidadProducto, pr.precio, prom.descuento
+	-- ) AS 'Total de compra',
     pp.totalCantProd AS 'Total del producto',
     p.total AS 'Total de compra',
     p.estado AS 'Estado envío',
@@ -40,11 +47,77 @@ WHERE
     -- AND u.telefono LIKE '%30%' -- Consultar por número de contacto
     -- AND pp.idProducto = 1 -- Consultar por Cod. Producto
     -- AND pr.categoria LIKE '%ZAPATO%' -- Consultar por tipo de producto
-    AND prom.descuento IS NOT NULL -- Consultar segun su descuento
+    -- AND prom.descuento IS NOT NULL -- Consultar segun su descuento
     -- AND (DATE(p.fechaHoraSolicita) >= '2024-03-01' AND DATE(p.fechaHoraSolicita) <= '2024-03-02') -- Consulta por rango de fechas
 ;
 -- ------------------------------------------------------ -------- -- -- ------- ------------------------------------------------------ --
 
+-- --- Total compra --- --
+SELECT 
+	p.idPedido AS Factura,
+    p.fechaHoraSolicita AS 'Fecha de compra',
+    u.nombre AS 'Nombre cliente',
+    u.telefono AS 'Número contacto',
+    u.email AS 'Correo electronico',
+    SUM(pr.precio * pp.cantidadProducto) AS total,
+    -- p.total AS 'Total de compra',
+    p.estado AS 'Estado envío',
+    p.fechaHoraEntrega AS 'Fecha de entrega'
+    -- p.idCliente AS 'Cliente No',
+    -- u.id AS 'Usuario No',
+    -- u.edad AS 'Edad usuario',
+    -- u.sexo,
+    -- u.rol AS 'Tipo cliente'
+FROM
+	usuario AS u,
+    pedido AS p
+    INNER JOIN productoPedido AS pp USING (idPedido)
+    INNER JOIN producto AS pr USING (idProducto)
+WHERE 
+	p.idCliente = u.id
+    AND pp.idPedido = p.idPedido
+    AND pp.idProducto = pr.idProducto
+    -- AND p.idPedido = 3 -- Consultaro por id del pedido
+    -- AND p.estado = 'Enviado' -- Consultar según estado
+    -- AND u.email = 'usuarioClienteHombre@gmail.com' -- Consultar por email
+    -- AND u.nombre LIKE '%an%' -- Consultar por nombre de cliente
+    -- AND u.telefono LIKE '%30%' -- Consultar por número de contacto
+    -- AND (DATE(p.fechaHoraSolicita) >= '2024-03-01' AND DATE(p.fechaHoraSolicita) <= '2024-03-02') -- Consulta por rango de fechas
+GROUP BY
+	p.idPedido
+;
+-- --- Total compra --- --
+
+-- --- Subtotal compra --- --
+SELECT	
+    u.nombre AS 'Nombre cliente',
+    u.telefono AS 'Número contacto',
+    u.email AS 'Correo electronico',
+    pp.idProducto AS 'Cod. Producto',
+    pr.categoria AS 'Tipo producto',
+    pr.nombre AS 'Nombre producto',
+    -- pr.genero AS 'Genero',
+    pr.talla AS 'Talla',
+    pp.cantidadProducto AS 'Cantidad producto',
+    pr.precio AS 'Precio x unidad',
+    prom.descuento AS 'Descuento aplicado',
+    (IF (prom.descuento IS NOT NULL,
+         ROUND(pp.cantidadProducto * (pr.precio - (pr.precio * (prom.descuento)/100)),2),
+         ROUND(pr.precio * pp.cantidadProducto,2)
+        )
+    ) AS subtotal,
+    p.estado AS 'Estado envío',
+    p.fechaHoraEntrega AS 'Fecha de entrega'
+FROM
+    pedido AS p
+    INNER JOIN usuario AS u ON u.id = p.idCliente
+    RIGHT JOIN productoPedido AS pp USING (idPedido)
+    INNER JOIN producto AS pr USING (idProducto)
+    LEFT JOIN promociones AS prom USING (idProducto)
+WHERE
+	(prom.descuento IS NULL OR prom.descuento IS NOT NULL)
+;
+-- --- Subtotal compra --- --
 
 
 -- ---- Consulta de vista a producto de interacción ---- --
@@ -172,3 +245,7 @@ WHERE
 -- WHERE prom.idProducto = pr.idProducto
 ;
 -- ---------------------------------------------- ------- ---------------------------------------------- --
+SELECT p.idPedido, SUM(ROUND(pp.cantidadProducto * (pr.precio - (pr.precio * (prom.descuento)/100)),2)) 
+		FROM pedido AS p, productoPedido AS pp, producto AS pr, promociones AS prom
+        WHERE p.idPedido = pp.idPedido AND pp.idProducto = pr.idProducto AND prom.descuento IS NOT NULL
+		GROUP BY p.idPedido, pp.cantidadProducto, pr.precio, prom.descuento;
