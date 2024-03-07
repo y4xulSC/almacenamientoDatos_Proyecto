@@ -4,11 +4,11 @@ INSERT INTO rol () VALUES
     (2, 'Cliente')
 ;
 -- --- Valores Rol --- --
-SELECT * FROM usuario;
--- --------------------- Nuevos valores corregidos --------------------- --
+
+-- --------------------- Valores usuario --------------------- --
 INSERT INTO usuario (nombreUsuario, nombre, email, telefono, edad, sexo, contrasena, idRol) VALUES 
 	('userAdmin', 'Admin User', 'admin@example.com', 3100000000, 30, 'Hombre', 'pass123', 1),
-	('Jacobo90', 'Jacobo', 'cliente1@example.com', 3200000001, 25, 'Mujer', 'pass123', 2),
+	('Jacobo90', 'Jacobo', 'cliente1@example.com', 3200000001, 25, 'Hombre', 'pass123', 2),
 	('y4xul', 'Yaxul Cardenas', 'yaxul.cardenas@uao.edu.co', 3059460082, 21, 'Hombre', '123', 2),
 	('Edwards', 'Gabriel', 'cliente4@example.com', 3200000004, 20, 'Hombre', 'VivaElAmor', 2),
 	('GabrielXX', 'Eduardo', 'cliente5@example.com', 3200000005, 27, 'Mujer', 'pass123', 2),
@@ -18,7 +18,9 @@ INSERT INTO usuario (nombreUsuario, nombre, email, telefono, edad, sexo, contras
 	('Alejo09', 'Manuel', 'cliente9@example.com', 3200000009, 33, 'Mujer', 'pass123', 2),
     ('Cuaran02', 'Nicolas Cuaran', 'nicolas.cuaran@oau.edu.com', 3116680249, 18, 'Hombre', '123', 1)
 ;
+-- --------------------- Valores usuario --------------------- --
 
+-- --------------------- Valores productos --------------------- --
 INSERT INTO producto (nombre, precio, genero, categoria, talla, descripcion, diseno) VALUES 
 	('Camiseta Hombre A', 20000.00, 'Hombre', 'Camiseta', 'M', 'Camiseta deportiva para hombre', 'diseno_blob'),
 	('Buzo Mujer A', 50000.00, 'Mujer', 'Buzo', 'S', 'Buzo cómodo para mujer', 'diseno_blob'),
@@ -31,9 +33,9 @@ INSERT INTO producto (nombre, precio, genero, categoria, talla, descripcion, dis
 	('Sudadera Mujer B', 45000.00, 'Mujer', 'Sudadera', 'XL', 'Sudadera para mujer con diseño moderno', 'diseno_blob'),
 	('Zapatos Hombre B', 90000.00, 'Hombre', 'Zapatos', '42', 'Zapatos formales para hombre', 'diseno_blob')
 ;
+-- --------------------- Valores productos --------------------- --
 
-DESCRIBE visita;
-
+-- --------------------- Valores visita --------------------- --
 INSERT INTO visita () VALUES
 	(1,	4, 4, "2024-03-02  20:23:04"),
 	(2, 5, 4, "2024-03-03  03:35:05"),
@@ -56,9 +58,9 @@ INSERT INTO visita () VALUES
 	(19, 5, 9, "2024-03-08  05:59:04"),
 	(20, 9, 8, "2024-03-08  13:11:04")
 ;
+-- --------------------- Valores visita --------------------- --
 
-DESCRIBE promociones;
-
+-- --------------------- Valores promociones --------------------- --
 INSERT INTO promociones () VALUES 
 	(1, 9, "2024-03-01", "08:00:00", "2024-03-10", "20:00:00", 25.00),
 	(2, 3, "2024-03-01", "08:00:00", "2024-03-10", "20:00:00", 5.00),
@@ -66,7 +68,9 @@ INSERT INTO promociones () VALUES
 	(4, 4, "2024-03-01", "08:00:00", "2024-03-10", "20:00:00", 45.00),
 	(5, 2, "2024-03-01", "08:00:00", "2024-03-10", "20:00:00", 10.00)
 ;
+-- --------------------- Valores promociones --------------------- --
 
+-- --------------------- Valores pedido --------------------- --
 INSERT INTO pedido () VALUES 
 	(1, 9, "2024-03-01 09:30:00", "2024-03-01 20:45:00", 280000.00, 'entregado'), 
 	(2, 2, "2024-03-02 13:15:00", "2024-03-03 12:30:00", 300000.00, 'entregado'),
@@ -79,19 +83,24 @@ INSERT INTO pedido () VALUES
 	(9, 6, "2024-03-09 16:30:00", NULL, 120000.00, 'pendiente'), 
 	(10, 5, "2024-03-10 18:55:00", NULL, 150000.00, 'pendiente')
 ;
+-- --------------------- Valores pedido --------------------- --
 
+-- --------------------- Valores productoPedido --------------------- --
 INSERT INTO productoPedido (idPedido, idProducto, cantidadProducto) VALUES 
-(1, 1, 2), 
-(2, 2, 1), 
-(3, 3, 3), 
-(4, 4, 2), 
-(5, 5, 1), 
-(6, 6, 1), 
-(7, 7, 2), 
-(8, 8, 3), 
-(9, 9, 1), 
-(10, 10, 2);
+	(1, 1, 2), 
+	(2, 2, 1), 
+	(3, 3, 3), 
+	(4, 4, 2), 
+	(5, 5, 1), 
+	(6, 6, 1), 
+	(7, 7, 2), 
+	(8, 8, 3), 
+	(9, 9, 1), 
+	(10, 10, 2)
+;
+-- --------------------- Valores productoPedido --------------------- --
 
+-- --------------------- Valores departamento --------------------- --
 INSERT INTO departamento (nombre) VALUES 
 	('Bogotá'), 
     ('Antioquia'), 
@@ -99,7 +108,9 @@ INSERT INTO departamento (nombre) VALUES
     ('Atlántico'), 
     ('Santander')
 ;
+-- --------------------- Valores departamento --------------------- --
 
+-- --------------------- Valores ciudad --------------------- --
 INSERT INTO ciudad () VALUES
 	(1, 1, "Bogota", 110211),
 	(2, 1, "Bogota", 110111),
@@ -107,8 +118,6 @@ INSERT INTO ciudad () VALUES
 	(4, 3, "Cali", 760030),
 	(5, 3, "Buenaventura", 7645)
 ;
-
-DESCRIBE ciudad;
 INSERT INTO ciudad (idDepartamento, nombre, codigoPostal) VALUES 
 	(1, 'Bogotá', 110001), 
 	(2, 'Medellín', 50001), 
@@ -116,7 +125,9 @@ INSERT INTO ciudad (idDepartamento, nombre, codigoPostal) VALUES
 	(4, 'Barranquilla', 80001), 
 	(5, 'Bucaramanga', 680001)
 ;
+-- --------------------- Valores ciudad --------------------- --
 
+-- --------------------- Valores detalleEnvio --------------------- --
 INSERT INTO detalleEnvio (idPedido, idCiudad, barrio, calle, numero, infoExtra, pais) VALUES 
 	(1, 1, 'Chapinero', 'Calle 45', 123, 'Apartamento 301', 'Colombia'), 
 	(2, 1, 'Laureles', 'Carrera 70', 456, 'Casa 20', 'Colombia'), 
@@ -129,7 +140,9 @@ INSERT INTO detalleEnvio (idPedido, idCiudad, barrio, calle, numero, infoExtra, 
 	(9, 5, 'Sancancio', 'Calle 22', 5044, 'Edificio Concorde', 'Colombia'), 
 	(10, 5, 'Multicentro', 'Carrera 5', 6055, 'Casa con antejardín', 'Colombia')
 ;
+-- --------------------- Valores detalleEnvio --------------------- --
 
+-- --------------------- Valores comentario --------------------- --
 INSERT INTO comentario (idCliente, idProducto, comentario, calificacion) VALUES 
 	(2, 1, 'Muy buena calidad', '5'), 
 	(3, 2, 'Cómodo y a buen precio', '4'), 
@@ -142,7 +155,7 @@ INSERT INTO comentario (idCliente, idProducto, comentario, calificacion) VALUES
 	(9, 9, 'Colores muy vivos, excelente compra', '5'), 
 	(5, 10, 'Estilo formal que buscaba', '5');
 ;
--- --------------------- ------ ------- ---------- --------------------- --
+-- --------------------- Valores comentario --------------------- --
 
 
 

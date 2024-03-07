@@ -1,3 +1,48 @@
+-- usuario x productos comprados
+SELECT 
+	u.nombreUsuario AS 'Nombre de usuario',
+    SUM(pp.idProducto) AS 'Cantidad productos comprados',
+    SUM(p.total) AS 'Total compras'
+FROM 
+	usuario u
+	INNER JOIN pedido p ON u.id = p.idCliente
+	INNER JOIN productoPedido pp ON p.idPedido = pp.idPedido
+GROUP BY 
+	u.nombreUsuario
+;
+
+-- usuario x compras realizadas
+SELECT 
+	u.nombreUsuario,
+	COUNT(p.idPedido),
+    SUM(p.total)
+FROM 
+	pedido AS p, 
+    usuario AS u 
+WHERE 
+	p.idCliente = u.id
+GROUP BY 
+	u.nombreUsuario
+;
+
+SELECT 
+	pr.nombre,
+    prom.descuento
+FROM producto pr
+INNER JOIN promociones prom ON prom.idProducto = pr.idProducto
+;
+
+-- Num pedido x ciudad
+SELECT 
+	d.idCiudad, 
+	c.nombre, 
+    COUNT(DISTINCT p.idPedido) AS totalPedidos
+FROM productoPedido p
+	INNER JOIN detalleEnvio d ON d.idPedido = p.idPedido
+	INNER JOIN ciudad c ON c.id = d.idCiudad
+GROUP BY d.idCiudad, c.nombre
+;
+
 -- ------------------------------------------------------ Consulta de la factura ------------------------------------------------------ --
 SELECT 
 	p.idPedido AS Factura,
@@ -8,33 +53,21 @@ SELECT
     pp.idProducto AS 'Cod. Producto',
     pr.categoria AS 'Tipo producto',
     pr.nombre AS 'Nombre producto',
-    -- pr.genero AS 'Genero',
     pr.talla AS 'Talla',
     pp.cantidadProducto AS 'Cantidad producto',
     pr.precio AS 'Precio x unidad',
     prom.descuento AS 'Descuento aplicado',
-    -- ROUND(pp.cantidadProducto * (pr.precio -(pr.precio * (prom.descuento)/100)),2) AS 'Subtotal del producto',
-        -- ROUND(pp.cantidadProducto * (pr.precio - (pp)))
-    -- (SELECT SUM(ROUND(pp.cantidadProducto * (pr.precio - (pr.precio * (prom.descuento)/100)),2)) 
-	-- 	FROM productoPedido AS pp, producto AS pr, promociones AS prom, pedido AS p
-	-- 	WHERE pp.idProducto = pr.idProducto AND prom.descuento IS NOT NULL AND Factura = p.idPedido
-	-- 	GROUP BY pp.cantidadProducto, pr.precio, prom.descuento
-	-- ) AS 'Total de compra',
-    pp.totalCantProd AS 'Total del producto',
     p.total AS 'Total de compra',
     p.estado AS 'Estado envío',
     p.fechaHoraEntrega AS 'Fecha de entrega'
     -- p.idCliente AS 'Cliente No',
     -- u.id AS 'Usuario No',
-    -- u.edad AS 'Edad usuario',
-    -- u.sexo,
-    -- u.rol AS 'Tipo cliente'
 FROM
 	pedido AS p,
     usuario AS u,
     productoPedido AS pp,
     -- producto AS pr,
-    promociones AS prom-- , producto AS pr
+    promociones AS prom
 	RIGHT JOIN producto AS pr USING (idProducto)
 WHERE 
 	p.idCliente = u.id
@@ -65,9 +98,6 @@ SELECT
     p.fechaHoraEntrega AS 'Fecha de entrega'
     -- p.idCliente AS 'Cliente No',
     -- u.id AS 'Usuario No',
-    -- u.edad AS 'Edad usuario',
-    -- u.sexo,
-    -- u.rol AS 'Tipo cliente'
 FROM
 	usuario AS u,
     pedido AS p
@@ -177,7 +207,7 @@ ORDER BY
 
 -- ---- Consulta de los producto más comprados ---- --
 SELECT 
-	COUNT(pp.idPedido),
+	SUM(pp.idPedido),
     pr.nombre
 FROM 
     producto AS pr,
@@ -208,28 +238,7 @@ ORDER BY
 
 
 
--- --- Consulta de productos comprados --- --
-SELECT 
-	v.fechaHoraVisita AS 'Fecha y hora de la vista',
-	u.nombre AS 'Nombre de usuario',
-    u.sexo AS 'Sexo',
-    u.edad AS 'Edad',
-    pr.nombre AS 'Nombre del producto',
-    pr.categoria AS 'Tipo de producto',
-    pr.genero AS 'Genero producto',
-    pr.precio AS 'Precio x unidad'
-FROM 
-	visita AS v, 
-    usuario AS u, 
-    producto AS pr
-WHERE 
-	v.idUsuario = u.id 
-    AND v.idProducto = pr.idProducto
-    -- AND u.nombre LIKE '%usuario cliente mujer%' -- Consultar compras por nombre del usuario
-    -- AND u.id = 4 -- Consultar compras por id del cliente
-    -- AND pr.nombre LIKE '%CozyWa%' -- Consulta de compras x el nombre de un producto
-;
--- --- -------- -- --------- --------- --- --
+
 
 
 
