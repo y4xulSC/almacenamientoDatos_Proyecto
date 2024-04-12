@@ -17,8 +17,7 @@ import com.proyectoBackend.Api.Repositorio.IUsuarioRepositorio;
 
 @Service
 public class UsuarioServicioImp implements IUsuarioServicio {
-    @Autowired
-    IUsuarioRepositorio usuarioRepositorio;
+    @Autowired IUsuarioRepositorio usuarioRepositorio;
     @Override
     public String guardarUsuario(UsuarioModel usuario) {
         usuarioRepositorio.save(usuario);
@@ -27,6 +26,10 @@ public class UsuarioServicioImp implements IUsuarioServicio {
 
     public UsuarioModel buscarUsuarioXid (int id) {
         Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findById(id);
-        return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el id" + id + "."));
+        return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el id " + id));
     }
+    //public UsuarioModel buscarUsuarioPorId(int idUsuario) {
+    //    Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findById(idUsuario);
+    //    return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el Id " + idUsuario));
+    //}
 }

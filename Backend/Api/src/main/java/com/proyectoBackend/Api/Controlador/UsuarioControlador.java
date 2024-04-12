@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,18 +19,19 @@ import com.proyectoBackend.Api.Modelo.UsuarioModel;
 import com.proyectoBackend.Api.Servicio.IUsuarioServicio;
 
 @RestController
-@RequestMapping ("/proyecto/usuarios")
+@RequestMapping ("/proyecto/usuario")
 
 public class UsuarioControlador {
-    @Autowired
-    IUsuarioServicio usuarioServicio;
+    
+    @Autowired IUsuarioServicio usuarioServicio;
+
     @PostMapping("/crear")
     public ResponseEntity<String> crearUsuario(@RequestBody UsuarioModel usuario) {
         usuarioServicio.guardarUsuario(usuario);
         return new ResponseEntity<String>(usuarioServicio.guardarUsuario(usuario), HttpStatus.OK);
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> buscarUsuarioXid(@PathVariable int id) {
         try {
             UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(id);
