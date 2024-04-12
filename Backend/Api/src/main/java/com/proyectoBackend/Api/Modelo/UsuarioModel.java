@@ -25,6 +25,7 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String nombreUsuario;
     private String nombre;
     private String email;
     private BigInteger telefono;
