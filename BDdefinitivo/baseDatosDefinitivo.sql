@@ -161,8 +161,7 @@ rol
 
 
 
-
--- DISEÑOS DE PRODUCTO
+-- DIusuarioSEÑOS DE PRODUCTO
 
 -- CREATE TABLE IF NOT EXISTS disenoPersonalizado ( -- Se elimina
 -- 	idDisenoPer INT NOT NULL AUTO_INCREMENT,
