@@ -5,4 +5,7 @@ import com.proyectoBackend.Api.Modelo.UsuarioModel;
 
 public interface IUsuarioRepositorio extends JpaRepository<UsuarioModel, Integer> {
     // consultas de la tabla usuario
+
+    boolean existsByNombreUsuarioOrEmail(String nombreUsuario, String email);
 }
+
