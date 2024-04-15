@@ -1,4 +1,4 @@
-package com.proyectoBackend.Api.Modelo;
+package com.proyectoBackend.Api.Modelo.Enum;
 
 public enum Rol {
     Administrador, Cliente

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
+import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 //import com.proyectoBackend.Api.Excepcion.ExistByUserId;
 //import com.proyectoBackend.Api.Modelo.UsuarioModel;
 import com.proyectoBackend.Api.Modelo.RolModel;
@@ -26,17 +27,18 @@ public class RolServicioImp implements IRolServicio {
     //@Autowired IUsuarioRepositorio usuarioRepositorio;
    
     @Override
-    public String guardarRol(RolModel rol) {
+    public String guardarRol (RolModel rol) {
         Integer idUsuario = rol.getUsuario().getIdUsuario(); // Obtener el idUsuario del rol
         
         // Verificar si el idUsuario existe en la base de datos
         if (!usuarioRepositorio.existsById(idUsuario)) {
             throw new RecursoNoEncontradoExcepcion("Usuario con ID " + idUsuario + " no encontrado");
+        } else if (rolRepositorio.existsById(idUsuario)) { // Verificar si el usuario ya tiene un rol asignado
+            throw new RecursoYaExistente("El usuario con ID " + idUsuario + " ya tiene un rol asignado");
+        } else { // Continuar con el proceso de guardar el rol si el idUsuario existe
+            rolRepositorio.save(rol);
+            return "Se dio acceso con el rol " + rol.getNombreRol();
         }
-
-        // Continuar con el proceso de guardar el rol si el idUsuario existe
-        rolRepositorio.save(rol);
-        return null;
     }
 
     public RolModel buscarRolXid(int idRol) {

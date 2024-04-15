@@ -33,7 +33,7 @@ public class UsuarioControlador {
         return new ResponseEntity<String>(usuarioServicio.guardarUsuario(usuario), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idUsuario}")
     public ResponseEntity<?> buscarUsuarioXid(@PathVariable int idUsuario) {
         try {
             UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(idUsuario);
@@ -55,7 +55,7 @@ public class UsuarioControlador {
         return null;
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{idUsuario}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable int idUsuario) {
         try {
             usuarioServicio.eliminarUsuario(idUsuario);
@@ -65,7 +65,7 @@ public class UsuarioControlador {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{idUsuario}")
     public ResponseEntity<?> actualizarUsuario(@PathVariable Integer idUsuario, @RequestBody UsuarioModel usuario) {
         try {
             UsuarioModel usuarioActualizado = usuarioServicio.actualizarUsuario(idUsuario, usuario);

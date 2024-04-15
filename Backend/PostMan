@@ -3,7 +3,8 @@
 		"_postman_id": "185c9355-d66e-498c-80da-988899cac9bb",
 		"name": "almacenamientoDatos_Proyecto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33591085"
+		"_exporter_id": "33591085",
+		"_collection_link": "https://winter-water-25973.postman.co/workspace/My-Workspace~beaa6c1a-728b-48b4-8b9b-a98afc296457/collection/33591085-185c9355-d66e-498c-80da-988899cac9bb?action=share&source=collection_link&creator=33591085"
 	},
 	"item": [
 		{
@@ -16,7 +17,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombreUsuario\": \"v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 15,\r\n    \"sexo\": \"Mujer\"\r\n}",
+							"raw": "{\r\n    \"nombreUsuario\": \"ju4n\",\r\n    \"nombre\": \"Juan Jacobo\",\r\n    \"email\": \"juan.jacobo@uao.edu.co\",\r\n    \"telefono\": 31112233,\r\n    \"edad\": 19,\r\n    \"sexo\": \"Hombre\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +108,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/usuario/4",
+							"raw": "http://localhost:8080/proyecto/usuario/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +117,7 @@
 							"path": [
 								"proyecto",
 								"usuario",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -206,7 +207,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"123\",\r\n    \"idUsuario\": {\r\n        \"id\": 4\r\n    }\r\n}",
+							"raw": "{\r\n    \"contrasena\": \"123\",\r\n    \"nombreRol\": \"Administrador\",\r\n    \"usuario\": {\r\n        \"idUsuario\": 4\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,7 +215,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/rol/crear",
+							"raw": "http://localhost:8080/proyecto/rol/crearRol",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -223,7 +224,7 @@
 							"path": [
 								"proyecto",
 								"rol",
-								"crear"
+								"crearRol"
 							]
 						}
 					},
@@ -256,7 +257,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/proyecto/rol/1",
+							"raw": "http://localhost:8080/proyecto/rol/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -265,7 +266,7 @@
 							"path": [
 								"proyecto",
 								"rol",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -277,7 +278,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/proyecto/rol/7",
+							"raw": "http://localhost:8080/proyecto/rol/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -286,13 +287,175 @@
 							"path": [
 								"proyecto",
 								"rol",
-								"7"
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarRol",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idRol\": 5,\r\n    \"nombreRol\": \"Administrador\",\r\n    \"contrasena\": \"123\",\r\n    \"usuario\": {\r\n        \"idUsuario\": 4\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"5"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "diseno",
+			"item": [
+				{
+					"name": "crearDiseno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    //\"idDiseno\": , \r\n    \"nombreDiseno\": \"Ruleta Rusa\",\r\n    \"categoria\": \"Juego\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/crearDiseno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"crearDiseno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarDisenoXid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarDisenos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarDiseno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarDiseno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreDiseno\": \"Diseño2\",\r\n    \"categoria\": \"Chaqueta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "producto",
+			"item": []
 		}
 	]
 }

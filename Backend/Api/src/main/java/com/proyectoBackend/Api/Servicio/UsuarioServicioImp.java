@@ -42,8 +42,9 @@ public class UsuarioServicioImp implements IUsuarioServicio {
     public void eliminarUsuario(int idUsuario){
         if (!usuarioRepositorio.existsById(idUsuario)) {
             throw new RecursoNoEncontradoExcepcion(" usuario con ID " + idUsuario + " no encontrado");
+        } else {
+            usuarioRepositorio.deleteById(idUsuario);
         }
-        usuarioRepositorio.deleteById(idUsuario);
     }
 
     public boolean existsByNombreUsuarioOrEmail(String nombreUsuario, String email) {

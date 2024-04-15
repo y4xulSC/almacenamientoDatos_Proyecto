@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
+import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 import com.proyectoBackend.Api.Modelo.RolModel;
+import com.proyectoBackend.Api.Modelo.UsuarioModel;
 import com.proyectoBackend.Api.Repositorio.IUsuarioRepositorio;
 import com.proyectoBackend.Api.Servicio.IRolServicio;
 import com.proyectoBackend.Api.Servicio.IUsuarioServicio;
@@ -34,17 +36,24 @@ public class RolControlador {
 
     @PostMapping("/crearRol")
     public ResponseEntity<?> crearRol(@RequestBody RolModel rol) {
-    rolServicio.guardarRol(rol);
-    try {
-        rolServicio.guardarRol(rol);
-     return ResponseEntity.ok("El Rol con ID " + rol.getIdRol() + " fue creado correctamente");
+        try {
+            Integer idUsuario = rol.getUsuario().getIdUsuario();
+            UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(idUsuario);
+            if (usuario != null) {
+                rolServicio.guardarRol(rol);
+                return new ResponseEntity<String>(rolServicio.guardarRol(rol), HttpStatus.OK);
+            } else {
+                throw new RecursoNoEncontradoExcepcion("No se encontró el usuario");
+            }
         } catch (RecursoNoEncontradoExcepcion e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (RecursoYaExistente e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
     // Buscar
-    @GetMapping("/{id}")
+    @GetMapping("/{idRol}")
     public ResponseEntity<?> buscarRolXid(@PathVariable int idRol) {
         try {
             RolModel rol = rolServicio.buscarRolXid(idRol);
@@ -59,11 +68,11 @@ public class RolControlador {
     @GetMapping("/")
     public ResponseEntity<List<RolModel>> listarRolesXusuario() {
         List<RolModel> rol = rolServicio.listarRolesXusuario();
-        return ResponseEntity.ok(rol);
+        return new ResponseEntity<List<RolModel>>(rol, HttpStatus.OK);
     }
-    // Eliminar
 
-    @DeleteMapping("/{id}")
+    // Eliminar
+    @DeleteMapping("/{idRol}")
     public ResponseEntity<?> eliminarRolXid(@PathVariable int idRol) {
         try {
             rolServicio.eliminarRol(idRol);
@@ -76,19 +85,19 @@ public class RolControlador {
     //Actualizar
     @PutMapping("/{idRol}") // Corregir el formato de la ruta
     public ResponseEntity<?> actualizarRol(@PathVariable Integer idRol, @RequestBody RolModel rol) {
-    try {
-        // Verificar si el usuario asociado al rol existe
-        if (!usuarioRepositorio.existsById(rol.getUsuario().getIdUsuario())) {
-            // Si el usuario no existe, lanzar una excepción
-            throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getUsuario().getIdUsuario() + " no encontrado");
-        }
+        try {
+            // Verificar si el usuario asociado al rol existe
+            if (!usuarioRepositorio.existsById(rol.getUsuario().getIdUsuario())) {
+                // Si el usuario no existe, lanzar una excepción
+                throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getUsuario().getIdUsuario() + " no encontrado");
+            }
 
-        // Si el usuario existe, actualizar el rol
-        RolModel rolActualizado = rolServicio.actualizarRol(idRol, rol);
-        return ResponseEntity.ok(rolActualizado);
-    } catch (RecursoNoEncontradoExcepcion e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            // Si el usuario existe, actualizar el rol
+            RolModel rolActualizado = rolServicio.actualizarRol(idRol, rol);
+            return ResponseEntity.ok(rolActualizado);
+        } catch (RecursoNoEncontradoExcepcion e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
-}
 
 }
