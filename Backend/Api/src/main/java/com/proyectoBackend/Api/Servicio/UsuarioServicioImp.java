@@ -34,9 +34,9 @@ public class UsuarioServicioImp implements IUsuarioServicio {
         return usuarioRepositorio.findAll();
     }
     
-    //public UsuarioModel buscarUsuarioXvalor (valor) {
-    //    
-    //}
+    public UsuarioModel buscarXnombre(String nombreUsuario) {
+        throw new UnsupportedOperationException("Unimplemented method 'buscarXnombre'");
+    }
 
     public void eliminarUsuario(int id){
         if (!usuarioRepositorio.existsById(id)) {
@@ -50,25 +50,15 @@ public class UsuarioServicioImp implements IUsuarioServicio {
     }
 
     public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
-        
         // Verificar si el usuario existe
-        
         Optional<UsuarioModel> usuarioOptional = usuarioRepositorio.findById(id);
         if (usuarioOptional.isPresent()) {
-            
             UsuarioModel usuarioExistente = usuarioOptional.get();
-            
             // Verificar si el nombre de usuario o el correo electrónico ya están en uso por otro usuario
-            
             if (usuarioExistente.getId() != usuario.getId()) { //} && usuarioExistente.getNombreUsuario() == usuario.getNombreUsuario()) {
                 throw new ExistByUserId("Ya hay usuarios usando el mismo email o nombre de usuario");
             } else {
                 if (usuarioRepositorio.existsByNombreUsuarioOrEmail(usuario.getNombreUsuario(), usuario.getEmail())) {
-                    
-                    // Validar si los datos del usuario coinciden con los datos del usuario existente
-                    // if (!usuarioExistente.equals(usuario)) {
-                        //     throw new ExistByUserId(usuarioExistente + "\nLos datos del usuario a actualizar no coinciden con los datos del usuario existente.");
-                    // }
                     usuarioExistente.setNombreUsuario(usuario.getNombreUsuario());
                     usuarioExistente.setNombre(usuario.getNombre());
                     usuarioExistente.setEmail(usuario.getEmail());
@@ -80,15 +70,6 @@ public class UsuarioServicioImp implements IUsuarioServicio {
                     throw new ExistNombreUsuario("El nombre de usuario '" + usuario.getNombreUsuario() + " o el correo electrónico '" + usuario.getEmail() + "' ya están en uso");
                 }
             }
-            //else {
-            //    usuarioExistente.setNombreUsuario(usuario.getNombreUsuario());
-            //    usuarioExistente.setNombre(usuario.getNombre());
-            //    usuarioExistente.setEmail(usuario.getEmail());
-            //    usuarioExistente.setTelefono(usuario.getTelefono());
-            //    usuarioExistente.setEdad(usuario.getEdad());
-            //    usuarioExistente.setSexo(usuario.getSexo());
-            //    return usuarioRepositorio.save(usuarioExistente);
-            //}
         } else {
             throw new RecursoNoEncontradoExcepcion("Usuario con ID " + id + " no encontrado");
         }

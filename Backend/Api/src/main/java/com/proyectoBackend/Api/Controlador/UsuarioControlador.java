@@ -49,6 +49,11 @@ public class UsuarioControlador {
         List<UsuarioModel> usuarios = usuarioServicio.listarUsuarios();
         return new ResponseEntity<List<UsuarioModel>> (usuarios, HttpStatus.OK);
     }
+    
+    @GetMapping("7{nombreUsuario}")
+    public ResponseEntity<?> buscarXnombre() {
+        return null;
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarUsuario(@PathVariable int id) {

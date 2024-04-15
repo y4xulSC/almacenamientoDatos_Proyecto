@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 
 CREATE TABLE IF NOT EXISTS rol (
 	id INT NOT NULL AUTO_INCREMENT,
-    nombreRol ENUM('Administrador', 'Cliente'), -- Administrador, Cliente y los que se desee agregar
+    nombreRol ENUM('Administrador', 'Cliente') NOT NULL, -- Administrador, Cliente y los que se desee agregar
     contrasena VARCHAR(255) NOT NULL, -- nueva
     idUsuario INT NOT NULL, -- nueva
     PRIMARY KEY (id),

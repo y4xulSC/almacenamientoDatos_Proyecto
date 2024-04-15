@@ -1,6 +1,7 @@
 package com.proyectoBackend.Api.Modelo;
 
-import java.math.BigInteger;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,30 +10,31 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table (name = "usuario", uniqueConstraints = {@UniqueConstraint(columnNames = {"nombreUsuario"})})
+@Table (name = "rol")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EnableJpaRepositories
 
-public class UsuarioModel {
+public class RolModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "nombreUsuario", unique = true)
-    private String nombreUsuario;
-    private String nombre;
-    private String email;
-    private BigInteger telefono;
-    private Integer edad;
-
-    @Column(name = "sexo")
+    @Column(name = "nombreRol")
     @Enumerated(EnumType.STRING)
-    private Sexo sexo;
+    private Rol nombreRol;
+
+    private String contrasena;
+
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private UsuarioModel idUsuario;
 }

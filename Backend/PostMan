@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombreUsuario\": \"usuarioPrueba\",\r\n    \"nombre\": \"usuario prueba\",\r\n    \"email\": \"usuario.prueba@uao.edu.co\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 20,\r\n    \"sexo\": \"Hombre\"\r\n}",
+							"raw": "{\r\n    \"nombreUsuario\": \"v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 15,\r\n    \"sexo\": \"Mujer\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +107,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/usuario/2",
+							"raw": "http://localhost:8080/proyecto/usuario/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +116,7 @@
 							"path": [
 								"proyecto",
 								"usuario",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -171,7 +171,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"nombreUsuario\": \"g4brielMartinez\",\r\n    \"nombre\": \"Gabriel Martinez\",\r\n    \"email\": \"gabriel.martinez@uao.edu.co\",\r\n    \"telefono\": 3226244468,\r\n    \"edad\": 21,\r\n    \"sexo\": \"Hombre\"\r\n}",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"nombreUsuario\": \"6issel_v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3193218956,\r\n    \"edad\": 16,\r\n    \"sexo\": \"Mujer\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -179,7 +179,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/usuario/3",
+							"raw": "http://localhost:8080/proyecto/usuario/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -188,7 +188,105 @@
 							"path": [
 								"proyecto",
 								"usuario",
-								"3"
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rol",
+			"item": [
+				{
+					"name": "CrearRol",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"123\",\r\n    \"idUsuario\": {\r\n        \"id\": 4\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarRolesXusuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarXid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarRol",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"7"
 							]
 						}
 					},
