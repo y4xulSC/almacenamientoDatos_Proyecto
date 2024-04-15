@@ -1,7 +1,8 @@
 package com.proyectoBackend.Api.Modelo;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class RolModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idRol;
     @Column(name = "nombreRol")
     @Enumerated(EnumType.STRING)
     private Rol nombreRol;
@@ -35,6 +36,8 @@ public class RolModel {
     private String contrasena;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario")
-    private UsuarioModel idUsuario;
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    
+    @JsonBackReference
+    private UsuarioModel usuario;   
 }

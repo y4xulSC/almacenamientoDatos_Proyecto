@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
-import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 import com.proyectoBackend.Api.Modelo.RolModel;
-import com.proyectoBackend.Api.Modelo.UsuarioModel;
+import com.proyectoBackend.Api.Repositorio.IUsuarioRepositorio;
 import com.proyectoBackend.Api.Servicio.IRolServicio;
 import com.proyectoBackend.Api.Servicio.IUsuarioServicio;
 
@@ -26,28 +25,29 @@ import com.proyectoBackend.Api.Servicio.IUsuarioServicio;
 
 public class RolControlador {
     @Autowired IRolServicio rolServicio;
+    
     @Autowired IUsuarioServicio usuarioServicio;
 
-    @PostMapping("/crear")
-    public ResponseEntity<String> crearRol(@RequestBody RolModel rol) {
-        try {
-            Integer idUsuario = rol.getIdUsuario().getId();
-            UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(idUsuario);
-            if (usuario != null) {
-                rolServicio.guardarRol(rol);
-                return new ResponseEntity<String>(rolServicio.guardarRol(rol), HttpStatus.OK);
-            } else {
-                throw new RecursoNoEncontradoExcepcion("No se encontró usuario");
-            }
+    @Autowired IUsuarioRepositorio usuarioRepositorio;
+   
+    //Crear
+
+    @PostMapping("/crearRol")
+    public ResponseEntity<?> crearRol(@RequestBody RolModel rol) {
+    rolServicio.guardarRol(rol);
+    try {
+        rolServicio.guardarRol(rol);
+     return ResponseEntity.ok("El Rol con ID " + rol.getIdRol() + " fue creado correctamente");
         } catch (RecursoNoEncontradoExcepcion e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
+    // Buscar
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarRolXid(@PathVariable int id) {
+    public ResponseEntity<?> buscarRolXid(@PathVariable int idRol) {
         try {
-            RolModel rol = rolServicio.buscarRolXid(id);
+            RolModel rol = rolServicio.buscarRolXid(idRol);
             return ResponseEntity.ok(rol);
         } catch (Exception e) {
             String mensajeError = e.getMessage();
@@ -55,31 +55,40 @@ public class RolControlador {
         }
     }
 
+    // Listar
     @GetMapping("/")
     public ResponseEntity<List<RolModel>> listarRolesXusuario() {
-        List<RolModel> roles = rolServicio.listarRolesXusuario();
-        return new ResponseEntity<List<RolModel>>(roles, HttpStatus.OK);
+        List<RolModel> rol = rolServicio.listarRolesXusuario();
+        return ResponseEntity.ok(rol);
     }
+    // Eliminar
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarRolXid(@PathVariable int id) {
+    public ResponseEntity<?> eliminarRolXid(@PathVariable int idRol) {
         try {
-            rolServicio.eliminarRol(id);
-            return ResponseEntity.ok("Rol con ID " + id + " eliminado");
+            rolServicio.eliminarRol(idRol);
+            return ResponseEntity.ok("Rol con ID " + idRol + " eliminado");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
     
-    //falta implementar.
-    @PutMapping("(/{id})")
-    public ResponseEntity<?> actualizarRol(@PathVariable Integer id, @RequestBody RolModel rol) {
-        try {
-            RolModel rolActualizado = rolServicio.actualizarRol(id, rol);
-            return ResponseEntity.ok(rolActualizado);
-        } catch (RecursoNoEncontradoExcepcion e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    //Actualizar
+    @PutMapping("/{idRol}") // Corregir el formato de la ruta
+    public ResponseEntity<?> actualizarRol(@PathVariable Integer idRol, @RequestBody RolModel rol) {
+    try {
+        // Verificar si el usuario asociado al rol existe
+        if (!usuarioRepositorio.existsById(rol.getUsuario().getIdUsuario())) {
+            // Si el usuario no existe, lanzar una excepción
+            throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getUsuario().getIdUsuario() + " no encontrado");
         }
+
+        // Si el usuario existe, actualizar el rol
+        RolModel rolActualizado = rolServicio.actualizarRol(idRol, rol);
+        return ResponseEntity.ok(rolActualizado);
+    } catch (RecursoNoEncontradoExcepcion e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+}
 
 }

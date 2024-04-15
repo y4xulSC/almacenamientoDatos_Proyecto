@@ -7,8 +7,12 @@ import com.proyectoBackend.Api.Modelo.RolModel;
 
 public interface IRolServicio {
     String guardarRol(RolModel rol);
-    RolModel buscarRolXid(int id);
+
+    RolModel buscarRolXid(int idRol);
+
     List<RolModel> listarRolesXusuario();
-    void eliminarRol(int id);
-    RolModel actualizarRol(Integer id, RolModel rol);
+
+    void eliminarRol(int idRol);
+
+    RolModel actualizarRol(Integer idRol, RolModel rol);
 }

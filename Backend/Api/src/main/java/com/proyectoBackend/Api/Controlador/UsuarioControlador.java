@@ -34,9 +34,9 @@ public class UsuarioControlador {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarUsuarioXid(@PathVariable int id) {
+    public ResponseEntity<?> buscarUsuarioXid(@PathVariable int idUsuario) {
         try {
-            UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(id);
+            UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(idUsuario);
             return ResponseEntity.ok(usuario);
         } catch (RecursoNoEncontradoExcepcion e) {
             String mensajeError = e.getMessage();
@@ -56,19 +56,19 @@ public class UsuarioControlador {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarUsuario(@PathVariable int id) {
+    public ResponseEntity<?> eliminarUsuario(@PathVariable int idUsuario) {
         try {
-            usuarioServicio.eliminarUsuario(id);
-            return ResponseEntity.ok("Usuario con ID " + id + " eliminado correctamente");
+            usuarioServicio.eliminarUsuario(idUsuario);
+            return ResponseEntity.ok("Usuario con ID " + idUsuario + " eliminado correctamente");
         } catch (RecursoNoEncontradoExcepcion e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioModel usuario) {
+    public ResponseEntity<?> actualizarUsuario(@PathVariable Integer idUsuario, @RequestBody UsuarioModel usuario) {
         try {
-            UsuarioModel usuarioActualizado = usuarioServicio.actualizarUsuario(id, usuario);
+            UsuarioModel usuarioActualizado = usuarioServicio.actualizarUsuario(idUsuario, usuario);
             return ResponseEntity.ok(usuarioActualizado);
         } catch (RecursoNoEncontradoExcepcion e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

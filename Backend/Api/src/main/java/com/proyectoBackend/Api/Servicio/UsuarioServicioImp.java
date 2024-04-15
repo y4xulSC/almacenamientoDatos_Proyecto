@@ -18,16 +18,17 @@ import com.proyectoBackend.Api.Repositorio.IUsuarioRepositorio;
 @Service
 public class UsuarioServicioImp implements IUsuarioServicio {
     @Autowired IUsuarioRepositorio usuarioRepositorio;
+    
     @Override
     public String guardarUsuario(UsuarioModel usuario) {
         usuarioRepositorio.save(usuario);
-        return "El usuario con el ID " + usuario.getId() + " fue creado con éxito";
+        return "El usuario con el ID " + usuario.getIdUsuario() + " fue creado con éxito";
     }
 
-    public UsuarioModel buscarUsuarioXid (int id) {
+    public UsuarioModel buscarUsuarioXid (int idUsuario) {
         //Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findOne(id);
-        Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findById(id);
-        return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el id " + id));
+        Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findById(idUsuario);
+        return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el id " + idUsuario));
     }
 
     public List<UsuarioModel> listarUsuarios() {
@@ -38,24 +39,24 @@ public class UsuarioServicioImp implements IUsuarioServicio {
         throw new UnsupportedOperationException("Unimplemented method 'buscarXnombre'");
     }
 
-    public void eliminarUsuario(int id){
-        if (!usuarioRepositorio.existsById(id)) {
-            throw new RecursoNoEncontradoExcepcion(" usuario con ID " + id + " no encontrado");
+    public void eliminarUsuario(int idUsuario){
+        if (!usuarioRepositorio.existsById(idUsuario)) {
+            throw new RecursoNoEncontradoExcepcion(" usuario con ID " + idUsuario + " no encontrado");
         }
-        usuarioRepositorio.deleteById(id);
+        usuarioRepositorio.deleteById(idUsuario);
     }
 
     public boolean existsByNombreUsuarioOrEmail(String nombreUsuario, String email) {
         return usuarioRepositorio.existsByNombreUsuarioOrEmail(nombreUsuario, email);
     }
 
-    public UsuarioModel actualizarUsuario(Integer id, UsuarioModel usuario) {
+    public UsuarioModel actualizarUsuario(Integer idUsuario, UsuarioModel usuario) {
         // Verificar si el usuario existe
-        Optional<UsuarioModel> usuarioOptional = usuarioRepositorio.findById(id);
+        Optional<UsuarioModel> usuarioOptional = usuarioRepositorio.findById(idUsuario);
         if (usuarioOptional.isPresent()) {
             UsuarioModel usuarioExistente = usuarioOptional.get();
             // Verificar si el nombre de usuario o el correo electrónico ya están en uso por otro usuario
-            if (usuarioExistente.getId() != usuario.getId()) { //} && usuarioExistente.getNombreUsuario() == usuario.getNombreUsuario()) {
+            if (usuarioExistente.getIdUsuario() != usuario.getIdUsuario()) { //} && usuarioExistente.getNombreUsuario() == usuario.getNombreUsuario()) {
                 throw new ExistByUserId("Ya hay usuarios usando el mismo email o nombre de usuario");
             } else {
                 if (usuarioRepositorio.existsByNombreUsuarioOrEmail(usuario.getNombreUsuario(), usuario.getEmail())) {
@@ -71,7 +72,7 @@ public class UsuarioServicioImp implements IUsuarioServicio {
                 }
             }
         } else {
-            throw new RecursoNoEncontradoExcepcion("Usuario con ID " + id + " no encontrado");
+            throw new RecursoNoEncontradoExcepcion("Usuario con ID " + idUsuario + " no encontrado");
         }
     }
 }
