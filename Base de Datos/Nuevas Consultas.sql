@@ -1,5 +1,4 @@
 -- Usuario x productos comprados
-
 SELECT 
     u.nombreUsuario AS 'Nombre de usuario',
     COUNT(DISTINCT pp.idProducto) AS 'Cantidad productos comprados',
@@ -13,7 +12,6 @@ GROUP BY
     
     
 -- Creación de factura 
-
 SELECT 
     p.idPedido AS 'Número de Pedido',
     u.nombre AS 'Nombre del Cliente',
@@ -66,7 +64,6 @@ ORDER BY
 
 
 -- Productos menos vendido y más vendido por ciudad
-
 SELECT 
     c.nombre AS 'Ciudad',
     p.nombre AS 'Nombre del Producto Menos Vendido',
@@ -104,9 +101,7 @@ FROM
     INNER JOIN diseno d ON p.idDiseno = d.idDiseno
 GROUP BY 
     d.categoria;
-    
-    
-    
+
 -- Clientes con más pedidos
 SELECT 
     u.nombre AS 'Nombre del Cliente',
@@ -121,7 +116,6 @@ ORDER BY
 LIMIT 20
 ;
 
-
 -- Total de ventas por ciudad
 SELECT 
     c.nombre AS 'Ciudad',
@@ -133,7 +127,6 @@ FROM
 GROUP BY 
     c.nombre;
 
-
 -- Total de ventas por mes
 SELECT 
     MONTHNAME(p.fechaHoraPedido) AS 'Mes',
@@ -142,7 +135,6 @@ FROM
     pedido p
 GROUP BY 
     MONTHNAME(p.fechaHoraPedido);
-
 
 -- Productos más vendidos en general
 SELECT 
@@ -156,8 +148,6 @@ GROUP BY
 ORDER BY 
     SUM(pp.cantidadProducto) DESC
 LIMIT 20;
-
-
 
 -- ciudades con más pedidos 
 SELECT 
@@ -213,7 +203,6 @@ FROM
     usuario
 GROUP BY 
     sexo;
-
 
 -- Total de ventas por día de la semana
 SELECT 

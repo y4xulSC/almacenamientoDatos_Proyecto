@@ -1,18 +1,17 @@
-usuario x productos comprados
-cracion de factura 
-Producto mas caro
-Producto mas vendido
-Producto mas vendido por Ciudad
-Producto menos vendido por ciudad
-Total de ventas por Genero
-Total de ventas por categoria de producto
-Clientes con mas pedidos
-Total de ventas por ciudad
-Total de ventas por mes
-5 Productos mas vendidos en general
-5 ciudades con mas pedidos
-Porcentaje de pedidos procesados por estado
-Total de ingresos por mes y año
+usuario x productos comprados (check ok)
+creacion de factura (check ok)
+Producto mas caro (check ok)
+Producto mas vendido (check ok)
+Producto mas y menos vendidos por Ciudad (check ok)
+Total de ventas por Genero (check ok)
+Total de ventas por categoria de producto(check ok)
+Clientes con mas pedidos (check ok)
+Total de ventas por ciudad (check ok)
+Total de ventas por mes (check ok)
+Productos mas vendidos en general (check ok)
+ciudades con mas pedidos (check ok)
+Porcentaje de pedidos procesados por estado (check ok)
+Total de ingresos por mes y año 
 Cantidad de productos por género
 Edad promedio de los clientes por género
 Total de ventas por dia de la semana

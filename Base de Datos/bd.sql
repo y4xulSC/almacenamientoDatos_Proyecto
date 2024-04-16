@@ -1,6 +1,5 @@
 CREATE DATABASE Proyecto;
 USE Proyecto;
--- Tabla Usuario}
 
 CREATE TABLE IF NOT EXISTS usuario (
     idUsuario INT NOT NULL AUTO_INCREMENT,
@@ -16,13 +15,11 @@ CREATE TABLE IF NOT EXISTS usuario (
 CREATE TABLE IF NOT EXISTS rol (
 	idRol INT NOT NULL AUTO_INCREMENT,
     nombreRol ENUM('Administrador', 'Cliente') NOT NULL, -- Administrador, Cliente y los que se desee agregar
-    contrasena VARCHAR(255) NOT NULL, -- nueva
-    idUsuario INT NOT NULL UNIQUE, -- nueva
+    contrasena VARCHAR(255) NOT NULL,
+    idUsuario INT NOT NULL UNIQUE,
     PRIMARY KEY (idRol),
-    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario) -- nueva
+    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
-
--- Tabla producto
 
 CREATE TABLE IF NOT EXISTS diseno (
     idDiseno INT NOT NULL AUTO_INCREMENT,
@@ -37,26 +34,15 @@ CREATE TABLE IF NOT EXISTS producto (
 	nombre VARCHAR(255) NOT NULL,
 	precio DECIMAL(10,2) NOT NULL,
     genero ENUM('Hombre','Mujer','Niño'),
-    -- categoria ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL, -- quitar
     talla VARCHAR(5) NOT NULL,
 	imagen BLOB NULL,
     descripcion VARCHAR(200) NULL,
     color VARCHAR(10) NULL,
     cantidadStock INT NULL,
-    idDiseno INT NOT NULL, -- quitar
+    idDiseno INT NOT NULL,
 	PRIMARY KEY (idProducto),
     FOREIGN KEY (idDiseno) REFERENCES diseno(idDiseno)
 );
-
--- CREATE TABLE IF NOT EXISTS visita (
--- 	idVisita INT NOT NULL AUTO_INCREMENT,
---     idProducto INT NOT NULL,
---     idUsuario INT NOT NULL,
---     fechaHoraVisita DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
---     PRIMARY KEY (idVisita),
---     FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
---     FOREIGN KEY (idUsuario) REFERENCES usuario(id)
--- );
 
 CREATE TABLE IF NOT EXISTS promociones (
 	idPromocion INT NOT NULL AUTO_INCREMENT,
@@ -70,8 +56,6 @@ CREATE TABLE IF NOT EXISTS promociones (
 	FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
-SELECT * FROM Promociones;
-
 CREATE TABLE IF NOT EXISTS paquete (
     idPaquete INT NOT NULL AUTO_INCREMENT,
     idProducto INT NOT NULL,
@@ -81,13 +65,10 @@ CREATE TABLE IF NOT EXISTS paquete (
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
--- TABLA PEDIDO
-
 CREATE TABLE IF NOT EXISTS pedido (
 	idPedido INT NOT NULL AUTO_INCREMENT,
 	idUsuario INT NOT NULL,
-	fechaHoraPedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Modificado
-	-- fechaHoraEntrega DATETIME NULL, -- quitar
+	fechaHoraPedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	estado ENUM('PENDIENTE', 'PROCESADO', 'ENVIADO', 'ENTREGADO') DEFAULT 'PENDIENTE' NOT NULL,
 	total DECIMAL(15,2) NOT NULL,
 		-- Pendiente: El envío del pedido esta por ser aceptado
@@ -98,19 +79,14 @@ CREATE TABLE IF NOT EXISTS pedido (
 	FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
 
--- TABLA DE LA CANTIDAD DE PRODUCTOS EN EL PEDIDO
-
 CREATE TABLE IF NOT EXISTS productoPedido (
 	idPedido INT NOT NULL,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    -- totalCantProd DECIMAL NOT NULL, -- Se elimina, se realiza por consulta
     PRIMARY KEY (idPedido, idProducto),
     FOREIGN KEY (idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
-
--- TABLA DEPARTAMENTO
 
 CREATE TABLE IF NOT EXISTS departamento (
 	idDepartamento INT NOT NULL AUTO_INCREMENT,
@@ -118,9 +94,7 @@ CREATE TABLE IF NOT EXISTS departamento (
 	PRIMARY KEY (idDepartamento)
 );
 
--- TABLA CIUDAD
-
-CREATE TABLE IF NOT EXISTS ciudad ( -- Una FOREIGN KEY es una pertenencia.
+CREATE TABLE IF NOT EXISTS ciudad (
 	idCiudad INT NOT NULL AUTO_INCREMENT,
 	idDepartamento INT NOT NULL,
 	nombre VARCHAR(60),
@@ -129,13 +103,11 @@ CREATE TABLE IF NOT EXISTS ciudad ( -- Una FOREIGN KEY es una pertenencia.
 	FOREIGN KEY (idDepartamento) REFERENCES departamento(idDepartamento)
 );
 
--- TABLA detalleEnvio
-
 CREATE TABLE IF NOT EXISTS detalleEnvio (
 	idDetalleEnvio INT NOT NULL AUTO_INCREMENT,
 	idPedido INT NOT NULL,
 	idCiudad INT NOT NULL,
-    barrio VARCHAR(150) NOT NULL, -- Nuevo
+    barrio VARCHAR(150) NOT NULL,
 	direccion VARCHAR(255) NOT NULL,
 	numero INT NOT NULL,
 	infoExtra VARCHAR(255) NOT NULL,
@@ -145,16 +117,16 @@ CREATE TABLE IF NOT EXISTS detalleEnvio (
 	FOREIGN KEY (idCiudad) REFERENCES ciudad(idCiudad)
 );
 
-CREATE TABLE IF NOT EXISTS comentario ( -- Corregido
+CREATE TABLE IF NOT EXISTS comentario (
 	idComentario INT NOT NULL AUTO_INCREMENT,
-    idUsuario INT NOT NULL, -- Nuevo
-    idProducto INT NOT NULL, -- idPedido INT NOT NULL, -- Modificado
+    idUsuario INT NOT NULL,
+    idProducto INT NOT NULL,
     comentario VARCHAR(200) NULL,
-    calificacion INT NULL, -- actualizado
+    calificacion INT NULL,
     PRIMARY KEY (idComentario),
-    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario), -- Nuevo
-    FOREIGN KEY (idProducto) REFERENCES producto(idProducto), -- FOREIGN KEY (idPedido) REFERENCES pedido(idPedido) -- Modificado
-    CONSTRAINT check_calificacionProducto CHECK (calificacion >= 0 AND calificacion <= 5) -- nuevo
+    FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario),
+    FOREIGN KEY (idProducto) REFERENCES producto(idProducto),
+    CONSTRAINT check_calificacionProducto CHECK (calificacion >= 0 AND calificacion <= 5)
 );
 
 -- Mostrar todas las tablas
