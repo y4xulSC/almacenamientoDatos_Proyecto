@@ -1,0 +1,19 @@
+usuario x productos comprados
+cracion de factura 
+Producto mas caro
+Producto mas vendido
+Producto mas vendido por Ciudad
+Producto menos vendido por ciudad
+Total de ventas por Genero
+Total de ventas por categoria de producto
+Clientes con mas pedidos
+Total de ventas por ciudad
+Total de ventas por mes
+5 Productos mas vendidos en general
+5 ciudades con mas pedidos
+Porcentaje de pedidos procesados por estado
+Total de ingresos por mes y año
+Cantidad de productos por género
+Edad promedio de los clientes por género
+Total de ventas por dia de la semana
+Promedio de duración del envío por ciudad
