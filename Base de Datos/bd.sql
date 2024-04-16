@@ -30,8 +30,7 @@ CREATE TABLE IF NOT EXISTS diseno (
     categoria VARCHAR(100) NOT NULL,
     PRIMARY KEY (idDiseno)
 );
-ALTER TABLE diseno MODIFY COLUMN categoria VARCHAR(100) NOT NULL;
-DESCRIBE diseno;
+INSERT INTO diseno VALUES(1, "Sin diseno", "No aplica");
 
 CREATE TABLE IF NOT EXISTS producto (
 	idProducto INT NOT NULL AUTO_INCREMENT,
@@ -48,7 +47,6 @@ CREATE TABLE IF NOT EXISTS producto (
 	PRIMARY KEY (idProducto),
     FOREIGN KEY (idDiseno) REFERENCES diseno(idDiseno)
 );
-DESCRIBE producto;
 
 -- CREATE TABLE IF NOT EXISTS visita (
 -- 	idVisita INT NOT NULL AUTO_INCREMENT,
@@ -76,7 +74,7 @@ CREATE TABLE IF NOT EXISTS paquete (
     idPaquete INT NOT NULL AUTO_INCREMENT,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    tipoPruducto ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL,
+    tipoPruducto VARCHAR(50) NOT NULL,
     PRIMARY KEY (idPaquete),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
@@ -158,10 +156,6 @@ CREATE TABLE IF NOT EXISTS comentario ( -- Corregido
 );
 
 -- Mostrar todas las tablas
-
-DESCRIBE 
-rol
-;
 DESCRIBE usuario
 -- producto
 -- visita

@@ -26,7 +26,6 @@ public class UsuarioServicioImp implements IUsuarioServicio {
     }
 
     public UsuarioModel buscarUsuarioXid (int idUsuario) {
-        //Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findOne(id);
         Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findById(idUsuario);
         return usuarioEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Usuario no encontrado por el id " + idUsuario));
     }

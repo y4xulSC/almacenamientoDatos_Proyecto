@@ -31,6 +31,7 @@ public class ProductoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProducto;
+    
     private String nombre;
     private Float precio;
     

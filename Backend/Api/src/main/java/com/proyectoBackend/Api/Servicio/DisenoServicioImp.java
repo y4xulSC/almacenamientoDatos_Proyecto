@@ -7,12 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
-import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 import com.proyectoBackend.Api.Modelo.DisenoModel;
 import com.proyectoBackend.Api.Repositorio.IDisenoRepositorio;
 
 @Service
-public class DisenoServicioImpl implements IDisenoServicio {
+public class DisenoServicioImp implements IDisenoServicio {
     @Autowired IDisenoRepositorio disenoRepositorio;
     
     @Override
