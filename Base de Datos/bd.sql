@@ -1,7 +1,6 @@
 CREATE DATABASE Proyecto;
 USE Proyecto;
 -- Tabla Usuario}
-DROP DATABASE Proyecto;
 
 CREATE TABLE IF NOT EXISTS usuario (
     idUsuario INT NOT NULL AUTO_INCREMENT,
@@ -82,8 +81,6 @@ CREATE TABLE IF NOT EXISTS paquete (
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
-DROP TABLE Paquete;
-
 -- TABLA PEDIDO
 
 CREATE TABLE IF NOT EXISTS pedido (
@@ -100,9 +97,7 @@ CREATE TABLE IF NOT EXISTS pedido (
 	PRIMARY KEY (idPedido),
 	FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
-SELECT * FROM pedido;
 
-DROP TABLE pedido;
 -- TABLA DE LA CANTIDAD DE PRODUCTOS EN EL PEDIDO
 
 CREATE TABLE IF NOT EXISTS productoPedido (

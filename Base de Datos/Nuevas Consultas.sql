@@ -50,7 +50,7 @@ WHERE
     precio = (SELECT MAX(precio) FROM producto);
 
 
--- Producto más vendido
+-- Productos más vendido
 SELECT 
     p.nombre AS 'Nombre del Producto Más Vendido',
     SUM(pp.cantidadProducto) AS 'Cantidad Total Vendida'
@@ -61,28 +61,12 @@ GROUP BY
     p.nombre
 ORDER BY 
     SUM(pp.cantidadProducto) DESC
-LIMIT 1;
+-- LIMIT 1
+;
 
 
--- Producto más vendido por Ciudad
-SELECT 
-    c.nombre AS 'Ciudad',
-    p.nombre AS 'Nombre del Producto Más Vendido',
-    SUM(pp.cantidadProducto) AS 'Cantidad Total Vendida'
-FROM 
-    producto p
-    INNER JOIN productoPedido pp ON p.idProducto = pp.idProducto
-    INNER JOIN pedido ped ON pp.idPedido = ped.idPedido
-    INNER JOIN detalleEnvio de ON ped.idPedido = de.idPedido
-    INNER JOIN ciudad c ON de.idCiudad = c.idCiudad
-GROUP BY 
-    c.nombre, p.nombre
-ORDER BY 
-    c.nombre, SUM(pp.cantidadProducto) DESC;
+-- Productos menos vendido y más vendido por ciudad
 
-
-
--- Producto menos vendido por ciudad
 SELECT 
     c.nombre AS 'Ciudad',
     p.nombre AS 'Nombre del Producto Menos Vendido',
@@ -96,8 +80,9 @@ FROM
 GROUP BY 
     c.nombre, p.nombre
 ORDER BY 
-    c.nombre, SUM(pp.cantidadProducto) ASC
-LIMIT 1;
+    c.nombre, SUM(pp.cantidadProducto) ASC -- Menos vendido
+    -- c.nombre, SUM(pp.cantidadProducto) DESC -- Más vendido
+;
 
 -- Total de ventas por Género
 SELECT 
@@ -133,7 +118,8 @@ GROUP BY
     u.nombre
 ORDER BY 
     COUNT(p.idPedido) DESC
-LIMIT 5;
+LIMIT 20
+;
 
 
 -- Total de ventas por ciudad
@@ -149,17 +135,16 @@ GROUP BY
 
 
 -- Total de ventas por mes
-
 SELECT 
-    MONTH(p.fechaHoraPedido) AS 'Mes',
+    MONTHNAME(p.fechaHoraPedido) AS 'Mes',
     SUM(p.total) AS 'Total de Ventas'
 FROM 
     pedido p
 GROUP BY 
-    MONTH(p.fechaHoraPedido);
+    MONTHNAME(p.fechaHoraPedido);
 
 
--- 5 Productos más vendidos en general
+-- Productos más vendidos en general
 SELECT 
     p.nombre AS 'Nombre del Producto',
     SUM(pp.cantidadProducto) AS 'Total Vendido'
@@ -170,11 +155,11 @@ GROUP BY
     p.nombre
 ORDER BY 
     SUM(pp.cantidadProducto) DESC
-LIMIT 5;
+LIMIT 20;
 
 
 
--- 5 ciudades con más pedidos 
+-- ciudades con más pedidos 
 SELECT 
     c.nombre AS 'Ciudad',
     COUNT(p.idPedido) AS 'Total de Pedidos'
@@ -186,7 +171,7 @@ GROUP BY
     c.nombre
 ORDER BY 
     COUNT(p.idPedido) DESC
-LIMIT 5;
+LIMIT 10;
 
 -- Porcentaje de pedidos procesados por estado
 SELECT 
@@ -207,9 +192,9 @@ SELECT
 FROM 
     pedido
 GROUP BY 
-    YEAR(fechaHoraPedido), MONTH(fechaHoraPedido)
+    YEAR(fechaHoraPedido), MONTHNAME(fechaHoraPedido)
 ORDER BY 
-    YEAR(fechaHoraPedido), MONTH(fechaHoraPedido);
+    YEAR(fechaHoraPedido), MONTHNAME(fechaHoraPedido);
 
 -- Cantidad de productos por género
 SELECT 
@@ -223,7 +208,7 @@ GROUP BY
 -- Edad promedio de los clientes por género
 SELECT 
     sexo AS 'Género',
-    AVG(edad) AS 'Edad Promedio'
+    ROUND(AVG(edad),0) AS 'Edad Promedio'
 FROM 
     usuario
 GROUP BY 
@@ -239,16 +224,16 @@ FROM
 GROUP BY 
     DAYNAME(fechaHoraPedido);
 
--- Promedio de duración del envío por ciudad
-SELECT 
-    c.nombre AS 'Ciudad',
-    AVG(TIMESTAMPDIFF(DAY, p.fechaHoraPedido, de.fechaHoraEntrega)) AS 'Promedio de Duración del Envío (Días)'
-FROM 
-    ciudad c
-    INNER JOIN detalleEnvio de ON c.idCiudad = de.idCiudad
-    INNER JOIN pedido p ON de.idPedido = p.idPedido
-WHERE 
-    p.fechaHoraEntrega IS NOT NULL
-GROUP BY 
-    c.nombre;
 
+-- Promedio de duración del envío por ciudad
+-- SELECT 
+--     c.nombre AS 'Ciudad',
+--     AVG(TIMESTAMPDIFF(DAY, p.fechaHoraPedido, de.fechaHoraEntrega)) AS 'Promedio de Duración del Envío (Días)'
+-- FROM 
+--     ciudad c
+--     INNER JOIN detalleEnvio de ON c.idCiudad = de.idCiudad
+--     INNER JOIN pedido p ON de.idPedido = p.idPedido
+-- WHERE 
+--     p.fechaHoraEntrega IS NOT NULL
+-- GROUP BY 
+--     c.nombre;
