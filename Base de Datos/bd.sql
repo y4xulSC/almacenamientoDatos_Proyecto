@@ -27,9 +27,11 @@ CREATE TABLE IF NOT EXISTS rol (
 CREATE TABLE IF NOT EXISTS diseno (
     idDiseno INT NOT NULL AUTO_INCREMENT,
     nombreDiseno VARCHAR(50) NOT NULL,
-    categoria ENUM('Camiseta', 'Buzo', 'Chaqueta', 'Sudadera', 'Zapatos') NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
     PRIMARY KEY (idDiseno)
 );
+ALTER TABLE diseno MODIFY COLUMN categoria VARCHAR(100) NOT NULL;
+DESCRIBE diseno;
 
 CREATE TABLE IF NOT EXISTS producto (
 	idProducto INT NOT NULL AUTO_INCREMENT,
@@ -46,6 +48,7 @@ CREATE TABLE IF NOT EXISTS producto (
 	PRIMARY KEY (idProducto),
     FOREIGN KEY (idDiseno) REFERENCES diseno(idDiseno)
 );
+DESCRIBE producto;
 
 -- CREATE TABLE IF NOT EXISTS visita (
 -- 	idVisita INT NOT NULL AUTO_INCREMENT,
