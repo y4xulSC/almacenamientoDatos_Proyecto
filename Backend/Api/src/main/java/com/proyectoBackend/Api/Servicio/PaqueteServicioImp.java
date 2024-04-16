@@ -2,6 +2,7 @@ package com.proyectoBackend.Api.Servicio;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
 import com.proyectoBackend.Api.Modelo.PaqueteModel;
+import com.proyectoBackend.Api.Modelo.ProductoModel;
 import com.proyectoBackend.Api.Repositorio.IPaqueteRepositorio;
 import com.proyectoBackend.Api.Repositorio.IProductoRepositorio;
 
@@ -47,20 +48,26 @@ public class PaqueteServicioImp implements IPaqueteServicio {
     }
 
     @Override
-    public PaqueteModel actualizarPaquete(Integer idPaquete, PaqueteModel paquete) {
-        Optional<PaqueteModel> paqueteExistenteOptional = paqueteRepositorio.findById(idPaquete);
-        if (paqueteExistenteOptional.isPresent()) {
-            PaqueteModel paqueteExistente = paqueteExistenteOptional.get();
-            if (paqueteRepositorio.existsById(paquete.getIdProducto().getIdProducto())) {
-                paqueteExistente.setCantidadProducto(paquete.getCantidadProducto());
-                paqueteExistente.setTipoProducto(paquete.getTipoProducto());
-                paqueteExistente.setIdProducto(paquete.getIdProducto());
-                return paqueteRepositorio.save(paqueteExistente);
-            } else {
-                throw new RecursoNoEncontradoExcepcion("El producto asociado al paquete no existe.");
-            }
+public PaqueteModel actualizarPaquete(Integer idPaquete, PaqueteModel paquete) {
+    Optional<PaqueteModel> paqueteExistenteOptional = paqueteRepositorio.findById(idPaquete);
+    if (paqueteExistenteOptional.isPresent()) {
+        PaqueteModel paqueteExistente = paqueteExistenteOptional.get();
+        
+        // Verificar si el producto asociado al paquete existe
+        Optional<ProductoModel> productoOptional = productoRepositorio.findById(paquete.getIdProducto().getIdProducto());
+        if (productoOptional.isPresent()) {
+            // Actualizar los atributos del paquete
+            paqueteExistente.setCantidadProducto(paquete.getCantidadProducto());
+            paqueteExistente.setTipoProducto(paquete.getTipoProducto());
+            paqueteExistente.setIdProducto(productoOptional.get()); // Asignar el producto existente
+            // Guardar el paquete actualizado
+            return paqueteRepositorio.save(paqueteExistente);
         } else {
-            throw new RecursoNoEncontradoExcepcion("Paquete con ID " + idPaquete + " no encontrado.");
+            throw new RecursoNoEncontradoExcepcion("El producto asociado al paquete no existe.");
         }
+    } else {
+        throw new RecursoNoEncontradoExcepcion("Paquete con ID " + idPaquete + " no encontrado.");
     }
+}
+
 }
