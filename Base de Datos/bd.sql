@@ -1,6 +1,7 @@
 CREATE DATABASE Proyecto;
 USE Proyecto;
--- Tabla Usuario
+-- Tabla Usuario}
+DROP DATABASE Proyecto;
 
 CREATE TABLE IF NOT EXISTS usuario (
     idUsuario INT NOT NULL AUTO_INCREMENT,
@@ -70,14 +71,18 @@ CREATE TABLE IF NOT EXISTS promociones (
 	FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
 
+SELECT * FROM Promociones;
+
 CREATE TABLE IF NOT EXISTS paquete (
     idPaquete INT NOT NULL AUTO_INCREMENT,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    tipoPruducto VARCHAR(50) NOT NULL,
+    tipoProducto VARCHAR(50) NOT NULL,
     PRIMARY KEY (idPaquete),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
+
+DROP TABLE Paquete;
 
 -- TABLA PEDIDO
 
@@ -86,7 +91,7 @@ CREATE TABLE IF NOT EXISTS pedido (
 	idUsuario INT NOT NULL,
 	fechaHoraPedido DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, -- Modificado
 	-- fechaHoraEntrega DATETIME NULL, -- quitar
-	estado ENUM('pendiente', 'procesado', 'enviado', 'entregado') DEFAULT 'Pendiente' NOT NULL,
+	estado ENUM('PENDIENTE', 'PROCESADO', 'ENVIADO', 'ENTREGADO') DEFAULT 'PENDIENTE' NOT NULL,
 	total DECIMAL(15,2) NOT NULL,
 		-- Pendiente: El envío del pedido esta por ser aceptado
 		-- Procesado: El envío del pedido es aceptado por la entidad que realizará el proceso para enviarlo de un lugar A a un lugar B
@@ -95,7 +100,9 @@ CREATE TABLE IF NOT EXISTS pedido (
 	PRIMARY KEY (idPedido),
 	FOREIGN KEY (idUsuario) REFERENCES usuario(idUsuario)
 );
+SELECT * FROM pedido;
 
+DROP TABLE pedido;
 -- TABLA DE LA CANTIDAD DE PRODUCTOS EN EL PEDIDO
 
 CREATE TABLE IF NOT EXISTS productoPedido (

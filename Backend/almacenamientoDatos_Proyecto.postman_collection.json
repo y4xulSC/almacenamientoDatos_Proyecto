@@ -1,0 +1,807 @@
+{
+	"info": {
+		"_postman_id": "31063697-c56f-4367-aa03-d89bb60e1521",
+		"name": "almacenamientoDatos_Proyecto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33590937"
+	},
+	"item": [
+		{
+			"name": "usuario",
+			"item": [
+				{
+					"name": "crearUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreUsuario\": \"v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 15,\r\n    \"sexo\": \"Mujer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/usuario/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarXid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 500\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.timestamp).to.exist;\r",
+									"  pm.expect(responseData.status).to.exist;\r",
+									"  pm.expect(responseData.error).to.exist;\r",
+									"  pm.expect(responseData.trace).to.exist;\r",
+									"  pm.expect(responseData.message).to.exist;\r",
+									"  pm.expect(responseData.path).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Timestamp is in a valid date format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.timestamp).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Error message is not empty\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.error).to.exist.and.to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Content-Type header is application/json\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/usuario/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/usuario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarUsuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/usuario/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"nombreUsuario\": \"6issel_v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3193218956,\r\n    \"edad\": 16,\r\n    \"sexo\": \"Mujer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/usuario/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"usuario",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rol",
+			"item": [
+				{
+					"name": "CrearRol",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"123\",\r\n    \"idUsuario\": {\r\n        \"id\": 4\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarRolesXusuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscarXid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarRol",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "CrearProducto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Camiseta de algodón\",\r\n    \"precio\": 19.99,\r\n    \"genero\": \"Hombre\",\r\n    \"talla\": \"M\",\r\n    \"imagen\": null,\r\n    \"descripcion\": \"Camiseta cómoda y transpirable\",\r\n    \"color\": \"Blanco\",\r\n    \"cantidadStock\": 50,\r\n    \"idDiseno\": {\r\n        \"idDiseno\": 1\r\n    }\r\n}\r\n\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarProductos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarProductos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Camiseta de algodón\",\r\n    \"precio\": 20,\r\n    \"genero\": \"Hombre\",\r\n    \"talla\": \"M\",\r\n    \"imagen\": null,\r\n    \"descripcion\": \"Camiseta cómoda y transpirable\",\r\n    \"color\": \"Blanco\",\r\n    \"cantidadStock\": 50,\r\n    \"idDiseno\": {\r\n        \"idDiseno\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paquete",
+			"item": [
+				{
+					"name": "CrearPaquete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cantidadProducto\": 5,\r\n    \"tipoProducto\": \"Camiseta\",\r\n        \"idProducto\": {\r\n        \"idProducto\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/paquete/crearPaquete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"paquete",
+								"crearPaquete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPaquetes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/paquete/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"paquete",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPaquetes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/paquete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"paquete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPaquete",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cantidadProducto\": 7,\r\n    \"tipoProducto\": \"Camiseta\",\r\n        \"idProducto\": {\r\n        \"idProducto\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/paquete/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"paquete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Promociones",
+			"item": [
+				{
+					"name": "CrearPromociones",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Camiseta de algodón\",\r\n    \"precio\": 19.99,\r\n    \"genero\": \"Hombre\",\r\n    \"talla\": \"M\",\r\n    \"imagen\": null,\r\n    \"descripcion\": \"Camiseta cómoda y transpirable\",\r\n    \"color\": \"Blanco\",\r\n    \"cantidadStock\": 50,\r\n    \"idDiseno\": {\r\n        \"idDiseno\": 1\r\n    }\r\n}\r\n\r\n\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPromociones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPromociones",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPromociones",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Camiseta de algodón\",\r\n    \"precio\": 20,\r\n    \"genero\": \"Hombre\",\r\n    \"talla\": \"M\",\r\n    \"imagen\": null,\r\n    \"descripcion\": \"Camiseta cómoda y transpirable\",\r\n    \"color\": \"Blanco\",\r\n    \"cantidadStock\": 50,\r\n    \"idDiseno\": {\r\n        \"idDiseno\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diseno",
+			"item": [
+				{
+					"name": "CrearDiseño",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreDiseno\": \"Diseño Floral\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/crearDiseno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"crearDiseno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarDiseños",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarDiseños",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarDiseno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreDiseno\": \"Guacamaya\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedido",
+			"item": [
+				{
+					"name": "CrearPedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"total\": 50.99,\r\n    \"usuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/pedido/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"pedido",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPedidoPorId",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarPedidos",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarPedidos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"ENVIADO\",\r\n    \"total\": 50.99,\r\n    \"usuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/pedido/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"pedido",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
