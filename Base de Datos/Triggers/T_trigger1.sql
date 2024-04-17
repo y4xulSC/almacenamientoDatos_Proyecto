@@ -86,13 +86,7 @@ DELIMITER $$
 CREATE TRIGGER after_insert_pedido AFTER INSERT ON pedido
 FOR EACH ROW
 BEGIN
-
-    -- Actualizar el estado del producto asociado al pedido
-    UPDATE producto
-    SET estado = 'ENVIADO'
-    WHERE idProducto IN (SELECT idProducto FROM productoPedido WHERE idPedido = NEW.idPedido);
-
-    -- registrar la insercion
+    -- Registrar la insercion
     INSERT INTO registro_actividad (accion, descripcion, fecha)
     VALUES ('Nuevo pedido realizado', CONCAT('Se realizo un nuevo pedido con ID', NEW.idPedido), NOW());
 END $$
