@@ -1,9 +1,8 @@
 package com.proyectoBackend.Api.Servicio;
 
-import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
 import com.proyectoBackend.Api.Modelo.DetalleEnvioModel;
+import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
 import com.proyectoBackend.Api.Repositorio.IDetalleEnvioRepositorio;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +12,19 @@ import java.util.Optional;
 @Service
 public class DetalleEnvioServicioImp implements IDetalleEnvioServicio {
 
-    @Autowired 
+    @Autowired
     IDetalleEnvioRepositorio detalleEnvioRepositorio;
 
     @Override
     public String guardarDetalleEnvio(DetalleEnvioModel detalleEnvio) {
-    detalleEnvioRepositorio.save(detalleEnvio);
-    return "Se creó el detalle de envío con ID " + detalleEnvio.getIdDetalleEnvio() + ".";
+        detalleEnvioRepositorio.save(detalleEnvio);
+        return "Se ha creado el detalle de envío correctamente.";
     }
 
     @Override
     public DetalleEnvioModel buscarDetalleEnvioPorId(int idDetalleEnvio) {
         Optional<DetalleEnvioModel> detalleEnvioOptional = detalleEnvioRepositorio.findById(idDetalleEnvio);
-        return detalleEnvioOptional.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Detalle de envío con ID " + idDetalleEnvio + " no encontrado"));
+        return detalleEnvioOptional.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Detalle de envío no encontrado"));
     }
 
     @Override
@@ -35,10 +34,10 @@ public class DetalleEnvioServicioImp implements IDetalleEnvioServicio {
 
     @Override
     public void eliminarDetalleEnvio(int idDetalleEnvio) {
-        if (detalleEnvioRepositorio.existsById(idDetalleEnvio)) {
-            detalleEnvioRepositorio.deleteById(idDetalleEnvio);
+        if (!detalleEnvioRepositorio.existsById(idDetalleEnvio)) {
+            throw new RecursoNoEncontradoExcepcion("Detalle de envío no encontrado");
         } else {
-            throw new RecursoNoEncontradoExcepcion("Detalle de envío con ID " + idDetalleEnvio + " no encontrado");
+            detalleEnvioRepositorio.deleteById(idDetalleEnvio);
         }
     }
 
@@ -56,8 +55,9 @@ public class DetalleEnvioServicioImp implements IDetalleEnvioServicio {
             // Guardar el detalle de envío actualizado
             return detalleEnvioRepositorio.save(detalleEnvioExistente);
         } else {
-            throw new RecursoNoEncontradoExcepcion("Detalle de envío con ID " + idDetalleEnvio + " no encontrado");
+            throw new RecursoNoEncontradoExcepcion("Detalle de envío no encontrado");
         }
     }
 }
+
 

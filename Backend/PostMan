@@ -1308,7 +1308,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"pedido\": {\r\n        \"idPedido\": 1\r\n    },\r\n    \"ciudad\": {\r\n        \"idCiudad\": 1\r\n    },\r\n    \"barrio\": \"Nombre del Barrio\",\r\n    \"direccion\": \"Nombre de la Dirección\",\r\n    \"numero\": 123,\r\n    \"infoExtra\": \"Información Extra\",\r\n    \"pais\": \"Nombre del País\"\r\n}",
+							"raw": "{\r\n    \"idPedido\": {\r\n        \"idPedido\": 1\r\n    },\r\n    \"idCiudad\": {\r\n        \"idCiudad\": 1\r\n    },\r\n    \"barrio\": \"Barrio Ejemplo\",\r\n    \"direccion\": \"Calle Ejemplo\",\r\n    \"numero\": 123,\r\n    \"infoExtra\": \"Información extra\",\r\n    \"pais\": \"País Ejemplo\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1337,7 +1337,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/detalleEnvio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"detalleEnvio",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -1348,7 +1358,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/detalleEnvio/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"detalleEnvio",
+								"2"
+							]
 						}
 					},
 					"response": []
@@ -1359,7 +1379,17 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/detalleEnvio/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"detalleEnvio",
+								"3"
+							]
 						}
 					},
 					"response": []
@@ -1369,8 +1399,27 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idPedido\": {\r\n        \"idPedido\": 1\r\n    },\r\n    \"idCiudad\": {\r\n        \"idCiudad\": 1\r\n    },\r\n    \"barrio\": \"Barrio Actualizado\",\r\n    \"direccion\": \"Calle Actualizada\",\r\n    \"numero\": 456,\r\n    \"infoExtra\": \"Nueva información extra\",\r\n    \"pais\": \"Nuevo País\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/detalleEnvio/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"detalleEnvio",
+								"1"
+							]
 						}
 					},
 					"response": []
