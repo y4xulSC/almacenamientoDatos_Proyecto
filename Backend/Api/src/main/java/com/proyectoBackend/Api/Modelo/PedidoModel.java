@@ -3,8 +3,6 @@ package com.proyectoBackend.Api.Modelo;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDateTime;
-import java.util.List;
-
 import com.proyectoBackend.Api.Modelo.Enum.EstadoPedido;
 
 import jakarta.persistence.Column;
@@ -14,7 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
@@ -41,7 +38,7 @@ public class PedidoModel {
 
     @Column(name = "estado") // Especifica la longitud de la columna si es necesario
     @Enumerated(EnumType.STRING)
-    private EstadoPedido estadoPedido;
+    private EstadoPedido estado;
 
     private Float total;
 
