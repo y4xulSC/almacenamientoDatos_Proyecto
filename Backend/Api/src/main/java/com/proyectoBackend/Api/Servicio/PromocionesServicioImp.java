@@ -12,7 +12,7 @@ import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 import com.proyectoBackend.Api.Modelo.ProductoModel;
 import com.proyectoBackend.Api.Modelo.PromocionesModel;
 import com.proyectoBackend.Api.Repositorio.IProductoRepositorio;
-import com.proyectoBackend.Api.Repositorio.IPromocionesRepositorio;
+
 
 @Service
 public class PromocionesServicioImp  implements IPromocionesServicio {
@@ -34,8 +34,6 @@ public String guardarPromocion(PromocionesModel promocion) {
         return "Fue aplicada la promoción " + promocion.getDescuento() + " al producto con ID " + idProducto.getIdProducto() + ".";
     }
 }
-
-
 
     public PromocionesModel buscarPromocionPorId(int idPromocion) {
         Optional<PromocionesModel> promocionEncontrada = promocionesRepositorio.findById(idPromocion);

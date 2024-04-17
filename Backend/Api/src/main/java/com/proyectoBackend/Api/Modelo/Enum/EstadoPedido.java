@@ -4,9 +4,5 @@ public enum EstadoPedido {
     PENDIENTE,
     PROCESADO,
     ENVIADO,
-    ENTREGADO,
-    Pendiente,
-    Procesado,
-    Enviado,
-    Entregado;
+    ENTREGADO
 }
