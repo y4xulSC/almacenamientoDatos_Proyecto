@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -39,4 +41,8 @@ public class UsuarioModel {
     @Column(name = "sexo")
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
+
+    @ManyToOne
+    @JoinColumn(name = "idCiudad", referencedColumnName = "idCiudad")
+    private CiudadModel idCiudad;
 }
