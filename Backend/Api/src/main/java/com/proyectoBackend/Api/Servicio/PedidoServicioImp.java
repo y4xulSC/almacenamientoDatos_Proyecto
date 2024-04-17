@@ -55,13 +55,13 @@ public PedidoModel actualizarPedido(Integer idPedido, PedidoModel pedido) {
         PedidoModel pedidoExistente = pedidoOptional.get();
         
         // Verificar si el usuario asociado al pedido existe
-        Optional<UsuarioModel> usuarioOptional = usuarioRepositorio.findById(pedido.getUsuario().getIdUsuario());
+        Optional<UsuarioModel> usuarioOptional = usuarioRepositorio.findById(pedido.getIdUsuario().getIdUsuario());
         if (usuarioOptional.isPresent()) {
             // Actualizar los atributos del pedido
             pedidoExistente.setFechaHoraPedido(pedido.getFechaHoraPedido());
             pedidoExistente.setEstado(pedido.getEstado());
             pedidoExistente.setTotal(pedido.getTotal());
-            pedidoExistente.setUsuario(usuarioOptional.get()); // Asignar el usuario existente
+            pedidoExistente.setIdUsuario(usuarioOptional.get()); // Asignar el usuario existente
             // Guardar el pedido actualizado
             return pedidoRepositorio.save(pedidoExistente);
         } else {

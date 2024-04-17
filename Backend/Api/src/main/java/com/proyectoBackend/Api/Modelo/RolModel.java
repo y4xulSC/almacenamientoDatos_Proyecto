@@ -41,5 +41,5 @@ public class RolModel {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", unique = true)
-    private UsuarioModel usuario;
+    private UsuarioModel idUsuario;
 }

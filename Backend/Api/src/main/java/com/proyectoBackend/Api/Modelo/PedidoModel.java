@@ -44,7 +44,7 @@ public class PedidoModel {
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
-    private UsuarioModel usuario;
+    private UsuarioModel idUsuario;
 
     //@OneToMany(mappedBy = "idPedido")
     //private List<ProductoPedidoModel> pedidos;

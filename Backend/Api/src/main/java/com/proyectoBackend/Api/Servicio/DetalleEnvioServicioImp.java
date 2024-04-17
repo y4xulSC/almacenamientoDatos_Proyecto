@@ -18,8 +18,8 @@ public class DetalleEnvioServicioImp implements IDetalleEnvioServicio {
 
     @Override
     public String guardarDetalleEnvio(DetalleEnvioModel detalleEnvio) {
-        detalleEnvioRepositorio.save(detalleEnvio);
-        return "El detalle de envío con el ID " + detalleEnvio.getIdDetalleEnvio() + " fue creado con éxito.";
+    detalleEnvioRepositorio.save(detalleEnvio);
+    return "Se creó el detalle de envío con ID " + detalleEnvio.getIdDetalleEnvio() + ".";
     }
 
     @Override

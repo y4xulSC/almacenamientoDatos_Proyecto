@@ -28,7 +28,7 @@ public class RolServicioImp implements IRolServicio {
    
     @Override
     public String guardarRol (RolModel rol) {
-        Integer idUsuario = rol.getUsuario().getIdUsuario(); // Obtener el idUsuario del rol
+        Integer idUsuario = rol.getIdUsuario().getIdUsuario(); // Obtener el idUsuario del rol
         
         // Verificar si el idUsuario existe en la base de datos
         if (!usuarioRepositorio.existsById(idUsuario)) {
@@ -66,7 +66,7 @@ public class RolServicioImp implements IRolServicio {
         if (rolOptional.isPresent()) {
             RolModel rolExistente = rolOptional.get();
             // Verificar si el usuario asociado al rol existe
-            if (usuarioRepositorio.existsById(rol.getUsuario().getIdUsuario())) {
+            if (usuarioRepositorio.existsById(rol.getIdUsuario().getIdUsuario())) {
                 // Actualizar los campos del rol existente con los valores del rol proporcionado
                 rolExistente.setContrasena(rol.getContrasena());
                 rolExistente.setNombreRol(rol.getNombreRol());
@@ -76,7 +76,7 @@ public class RolServicioImp implements IRolServicio {
                 return rolRepositorio.save(rolExistente);
             } else {
                 // Si el usuario asociado al rol no existe, lanzar una excepción
-                throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getUsuario().getIdUsuario() + " no encontrado");
+                throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getIdUsuario().getIdUsuario() + " no encontrado");
             }
         } else {
             // Si el rol con el ID especificado no existe, lanzar una excepción

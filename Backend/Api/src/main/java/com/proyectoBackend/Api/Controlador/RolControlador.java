@@ -37,7 +37,7 @@ public class RolControlador {
     @PostMapping("/crearRol")
     public ResponseEntity<?> crearRol(@RequestBody RolModel rol) {
         try {
-            Integer idUsuario = rol.getUsuario().getIdUsuario();
+            Integer idUsuario = rol.getIdUsuario().getIdUsuario();
             UsuarioModel usuario = usuarioServicio.buscarUsuarioXid(idUsuario);
             if (usuario != null) {
                 rolServicio.guardarRol(rol);
@@ -87,9 +87,9 @@ public class RolControlador {
     public ResponseEntity<?> actualizarRol(@PathVariable Integer idRol, @RequestBody RolModel rol) {
         try {
             // Verificar si el usuario asociado al rol existe
-            if (!usuarioRepositorio.existsById(rol.getUsuario().getIdUsuario())) {
+            if (!usuarioRepositorio.existsById(rol.getIdUsuario().getIdUsuario())) {
                 // Si el usuario no existe, lanzar una excepción
-                throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getUsuario().getIdUsuario() + " no encontrado");
+                throw new RecursoNoEncontradoExcepcion("Usuario con ID " + rol.getIdUsuario().getIdUsuario() + " no encontrado");
             }
 
             // Si el usuario existe, actualizar el rol

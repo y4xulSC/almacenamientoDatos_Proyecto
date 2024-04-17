@@ -1,11 +1,267 @@
 {
 	"info": {
-		"_postman_id": "65759378-de54-42f4-9b19-cd3c50cd44cf",
+		"_postman_id": "7d7e63af-6438-4fa0-a47d-fbb9333ed602",
 		"name": "almacenamientoDatos_Proyecto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "33590937"
+		"_exporter_id": "33587363"
 	},
 	"item": [
+		{
+			"name": "Departamento",
+			"item": [
+				{
+					"name": "CrearDepartamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Valle Del Cauca\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/departamento/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"departamento",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarDepartamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/departamento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"departamento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarDepartamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/departamento/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"departamento",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarDepartamento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/departamento/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"departamento",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarDepartamento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Valle del Cauca\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/departamento/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"departamento",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ciudad",
+			"item": [
+				{
+					"name": "CrearCiudad",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Soacha\",\r\n    \"codigoPostal\": 12345,\r\n    \"idDepartamento\": {\r\n        \"idDepartamento\": 1\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/ciudades/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"ciudades",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarCuidad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/ciudades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"ciudades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarCiudad",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/ciudades/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"ciudades",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarCiudad",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/ciudades/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"ciudades",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarCiudad",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Miranda\",\r\n    \"codigoPostal\": 76001,\r\n    \"idDepartamento\": {\r\n        \"idDepartamento\": 2\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/ciudades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"ciudades",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "usuario",
 			"item": [
@@ -16,7 +272,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombreUsuario\": \"v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 15,\r\n    \"sexo\": \"Mujer\"\r\n}",
+							"raw": "{\r\n    \"nombreUsuario\": \"Gabriel\",\r\n    \"nombre\": \"GabrielXD\",\r\n    \"email\": \"GABRIEL.UAO@Gmail.COM\",\r\n    \"telefono\": 3001112233,\r\n    \"edad\": 20,\r\n    \"sexo\": \"Hombre\",\r\n     \"idCiudad\": {\r\n        \"idCiudad\": 2\r\n    }\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -107,7 +363,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/usuario/4",
+							"raw": "http://localhost:8080/proyecto/usuario/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +372,7 @@
 							"path": [
 								"proyecto",
 								"usuario",
-								"4"
+								"2"
 							]
 						}
 					},
@@ -165,13 +421,13 @@
 					"response": []
 				},
 				{
-					"name": "actualizar",
+					"name": "actualizarUsuario",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 4,\r\n    \"nombreUsuario\": \"6issel_v4le\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gissell.valeria@uao.edu.co\",\r\n    \"telefono\": 3193218956,\r\n    \"edad\": 16,\r\n    \"sexo\": \"Mujer\"\r\n}",
+							"raw": "{\r\n    \"idUsuario\": 1,\r\n    \"nombreUsuario\": \"6ihdjhsdj\",\r\n    \"nombre\": \"Gissell Valeria\",\r\n    \"email\": \"gisselldjsjdj@uao.edu.co\",\r\n    \"telefono\": 3193218956,\r\n    \"edad\": 16,\r\n    \"sexo\": \"Mujer\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -179,7 +435,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/usuario/4",
+							"raw": "http://localhost:8080/proyecto/usuario/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -188,7 +444,7 @@
 							"path": [
 								"proyecto",
 								"usuario",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -206,7 +462,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"123\",\r\n    \"idUsuario\": {\r\n        \"id\": 4\r\n    }\r\n}",
+							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"123\",\r\n    \"idUsuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,7 +470,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/rol/crear",
+							"raw": "http://localhost:8080/proyecto/rol/crearRol",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -223,7 +479,7 @@
 							"path": [
 								"proyecto",
 								"rol",
-								"crear"
+								"crearRol"
 							]
 						}
 					},
@@ -235,7 +491,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/proyecto/rol/",
+							"raw": "http://localhost:8080/proyecto/rol/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -244,7 +500,7 @@
 							"path": [
 								"proyecto",
 								"rol",
-								""
+								"1"
 							]
 						}
 					},
@@ -287,6 +543,154 @@
 								"proyecto",
 								"rol",
 								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarRol",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreRol\": \"Cliente\",\r\n    \"contrasena\": \"232434\",\r\n    \"idUsuario\": {\r\n        \"idUsuario\": 2\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/rol/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"rol",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Diseno",
+			"item": [
+				{
+					"name": "CrearDiseño",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreDiseno\": \"Diseño Floral\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/crearDiseno",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"crearDiseno"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarDiseños",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListarDiseno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarDiseños",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarDiseno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombreDiseno\": \"Guacamaya\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/diseno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"diseno",
+								"1"
 							]
 						}
 					},
@@ -398,6 +802,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ListarProductos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/producto/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"producto",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -505,6 +930,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "ListarPaquetes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/paquete/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"paquete",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -518,7 +964,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Camiseta de algodón\",\r\n    \"precio\": 19.99,\r\n    \"genero\": \"Hombre\",\r\n    \"talla\": \"M\",\r\n    \"imagen\": null,\r\n    \"descripcion\": \"Camiseta cómoda y transpirable\",\r\n    \"color\": \"Blanco\",\r\n    \"cantidadStock\": 50,\r\n    \"idDiseno\": {\r\n        \"idDiseno\": 1\r\n    }\r\n}\r\n\r\n\r\n\r\n",
+							"raw": "{\r\n  \"idProducto\": {\r\n    \"idProducto\": 1\r\n  },\r\n  \"fechaInicio\": \"2024-04-15\",\r\n  \"horaInicio\": \"09:00:00\",\r\n  \"fechaFin\": \"2024-04-30\",\r\n  \"horaFin\": \"18:00:00\",\r\n  \"descuento\": 10.5\r\n}\r\n\r\n\r\n\r\n\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -526,7 +972,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/proyecto/producto/crear",
+							"raw": "http://localhost:8080/proyecto/promociones/crearPromocion",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -534,8 +980,8 @@
 							"port": "8080",
 							"path": [
 								"proyecto",
-								"producto",
-								"crear"
+								"promociones",
+								"crearPromocion"
 							]
 						}
 					},
@@ -612,49 +1058,14 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Diseno",
-			"item": [
-				{
-					"name": "CrearDiseño",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombreDiseno\": \"Diseño Floral\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/proyecto/diseno/crearDiseno",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"diseno",
-								"crearDiseno"
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "BuscarDiseños",
+					"name": "ListarPromocion",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/proyecto/diseno/",
+							"raw": "http://localhost:8080/proyecto/promociones/",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -662,67 +1073,8 @@
 							"port": "8080",
 							"path": [
 								"proyecto",
-								"diseno",
+								"promociones",
 								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ListarDiseno",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "EliminarDiseños",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/diseno/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"diseno",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ActualizarDiseno",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombreDiseno\": \"Guacamaya\",\r\n    \"categoria\": \"Flores, Naturaleza, Primavera\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/proyecto/diseno/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"diseno",
-								"1"
 							]
 						}
 					},
@@ -740,7 +1092,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"total\": 50.99,\r\n    \"usuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
+							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"PENDIENTE\",\r\n    \"total\": 50.99,\r\n    \"idUsuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -819,7 +1171,10 @@
 					"name": "ListarPedido",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -835,7 +1190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"idPedido\": {\r\n        \"idPedido\": 1\r\n    },\r\n    \"idProducto\": {\r\n        \"idProducto\": 1\r\n    },\r\n    \"cantidadProducto\": 5\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -862,7 +1217,10 @@
 					"name": "BuscarProductoPedido",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -941,234 +1299,35 @@
 			]
 		},
 		{
-			"name": "Departamento",
-			"item": [
-				{
-					"name": "CrearDepartamento",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Cauca\"\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/proyecto/departamento/crear",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"departamento",
-								"crear"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "BuscarDepartamento",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/productoPedido/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"productoPedido",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ListarDepartamento",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "EliminarDepartamento",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/departamento/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"departamento",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ActualizarDepartamento",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/productoPedido/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"productoPedido",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Ciudad",
-			"item": [
-				{
-					"name": "CrearCiudad",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Cali\",\r\n    \"codigoPostal\": 12345,\r\n    \"idDepartamento\": {\r\n        \"idDepartamento\": 1\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/proyecto/ciudades/crear",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"ciudades",
-								"crear"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "BuscarCuidad",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "ListarCiudad",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/ciudades/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"ciudades",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "EliminarCiudad",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/proyecto/ciudades/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"ciudades",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ActualizarCiudad",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Pasto\",\r\n    \"codigoPostal\": 12345,\r\n    \"idDepartamento\": {\r\n        \"idDepartamento\": 1\r\n    }\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/proyecto/ciudades/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"proyecto",
-								"ciudades",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "DetalleEnvio",
 			"item": [
 				{
 					"name": "CrearDetalleEnvio",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pedido\": {\r\n        \"idPedido\": 1\r\n    },\r\n    \"ciudad\": {\r\n        \"idCiudad\": 1\r\n    },\r\n    \"barrio\": \"Nombre del Barrio\",\r\n    \"direccion\": \"Nombre de la Dirección\",\r\n    \"numero\": 123,\r\n    \"infoExtra\": \"Información Extra\",\r\n    \"pais\": \"Nombre del País\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/detalleEnvio/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"detalleEnvio",
+								"crear"
+							]
+						}
 					},
 					"response": []
 				},
@@ -1176,7 +1335,10 @@
 					"name": "BuscarDetalleEnvio",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -1184,7 +1346,10 @@
 					"name": "ListarDetalleEnvio",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -1192,7 +1357,10 @@
 					"name": "EliminarDetalleEnvio",
 					"request": {
 						"method": "DELETE",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -1200,7 +1368,117 @@
 					"name": "ActualizarDetalleEnvio",
 					"request": {
 						"method": "PUT",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comentario",
+			"item": [
+				{
+					"name": "CrearComentario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\": {\r\n        \"idUsuario\": 1\r\n    },\r\n    \"idProducto\": {\r\n        \"idProducto\": 1\r\n    },\r\n    \"comentario\": \"Este es un comentario de ejemplo\",\r\n    \"calificacion\": 5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/comentario/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"comentario",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarYListarComentarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/comentario/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"comentario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/proyecto/comentario/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"comentario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarComentario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comentario\": \"Comentario actualizado\",\r\n    \"calificacion\": 4\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/proyecto/comentario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"comentario",
+								"1"
+							]
+						}
 					},
 					"response": []
 				}
