@@ -2,8 +2,14 @@ package com.proyectoBackend.Api.Modelo;
 
 import java.math.BigInteger;
 
+<<<<<<< Updated upstream
 import com.proyectoBackend.Api.Modelo.Enum.Sexo;
 
+=======
+import com.proyectoBackend.Enum.Sexo;
+
+import jakarta.persistence.CascadeType;
+>>>>>>> Stashed changes
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

@@ -6,4 +6,8 @@ import com.proyectoBackend.Api.Modelo.ProductoModel;
 
 public interface IProductoRepositorio extends JpaRepository<ProductoModel, Integer> {
     //
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

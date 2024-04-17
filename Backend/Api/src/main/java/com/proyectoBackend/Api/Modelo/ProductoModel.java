@@ -4,7 +4,11 @@ import java.sql.Blob;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+<<<<<<< Updated upstream
 import com.proyectoBackend.Api.Modelo.Enum.Genero;
+=======
+import com.proyectoBackend.Enum.Genero;
+>>>>>>> Stashed changes
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +35,10 @@ public class ProductoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProducto;
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
     private String nombre;
     private Float precio;
     
@@ -48,7 +55,12 @@ public class ProductoModel {
     @ManyToOne
     @JoinColumn(name = "idDiseno", referencedColumnName = "idDiseno")
     private DisenoModel idDiseno;
+<<<<<<< Updated upstream
 
     //@OneToMany(mappedBy = "idProducto")
     //private List<ProductoPedidoModel> productos;
 }
+=======
+}
+
+>>>>>>> Stashed changes

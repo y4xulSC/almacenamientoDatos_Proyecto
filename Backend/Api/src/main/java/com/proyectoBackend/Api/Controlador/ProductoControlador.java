@@ -1,5 +1,6 @@
 package com.proyectoBackend.Api.Controlador;
 
+<<<<<<< Updated upstream
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,16 @@ import com.proyectoBackend.Api.Modelo.ProductoModel;
 import com.proyectoBackend.Api.Repositorio.IDisenoRepositorio;
 import com.proyectoBackend.Api.Servicio.IProductoServicio;
 
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+>>>>>>> Stashed changes
 @RestController
 @RequestMapping ("/proyecto/producto")
 
 public class ProductoControlador {
+<<<<<<< Updated upstream
  
     @Autowired IProductoServicio productoServicio;
 
@@ -79,3 +86,8 @@ public class ProductoControlador {
         }
     }
 }
+=======
+    
+}
+
+>>>>>>> Stashed changes

@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
 import com.proyectoBackend.Api.Modelo.DisenoModel;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 import com.proyectoBackend.Api.Servicio.IDisenoServicio;
 
 @RestController
@@ -25,8 +28,11 @@ import com.proyectoBackend.Api.Servicio.IDisenoServicio;
 public class DisenoControlador {
     @Autowired IDisenoServicio disenoServicio;
 
+<<<<<<< Updated upstream
    
 
+=======
+>>>>>>> Stashed changes
     @PostMapping("/crearDiseno")
     public ResponseEntity<String> crearDiseno(@RequestBody DisenoModel diseno) {
         disenoServicio.guardarDiseno(diseno);
@@ -34,12 +40,21 @@ public class DisenoControlador {
     }
 
     @GetMapping("/{idDiseno}")
+<<<<<<< Updated upstream
     public ResponseEntity<?> buscarDisenoXid(@PathVariable int idDiseno) {
+=======
+    public ResponseEntity<?> buscarUsuarioXid(@PathVariable int idDiseno) {
+>>>>>>> Stashed changes
         try {
             DisenoModel diseno = disenoServicio.buscarDisenoXid(idDiseno);
             return ResponseEntity.ok(diseno);
         } catch (RecursoNoEncontradoExcepcion e) {
+<<<<<<< Updated upstream
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+=======
+            String mensajeError = e.getMessage();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensajeError);
+>>>>>>> Stashed changes
         }
     }
 
@@ -59,6 +74,7 @@ public class DisenoControlador {
         }
     }
 
+<<<<<<< Updated upstream
     @PutMapping("/{idDiseno}") // Corregir el formato de la ruta
     public ResponseEntity<?> actualizarDiseno(@PathVariable Integer idDiseno, @RequestBody DisenoModel diseno) {
         try {
@@ -70,3 +86,19 @@ public class DisenoControlador {
     }
 }
 
+=======
+    @PutMapping("/diseno/{idDiseno}") 
+    
+    // Corregir el formato de la ruta
+    public ResponseEntity<?> actualizarDiseno(@PathVariable Integer idDiseno, @RequestBody DisenoModel diseno) {
+    try {
+        DisenoModel disenoActualizado = disenoServicio.actualizarDiseno(idDiseno, diseno);
+        return ResponseEntity.ok(disenoActualizado);
+    } catch (RecursoNoEncontradoExcepcion e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+}
+
+}
+
+>>>>>>> Stashed changes

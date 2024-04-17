@@ -2,7 +2,10 @@ package com.proyectoBackend.Api.Servicio;
 
 import java.util.Optional;
 import java.util.List;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +15,16 @@ import com.proyectoBackend.Api.Repositorio.IDisenoRepositorio;
 
 @Service
 public class DisenoServicioImp implements IDisenoServicio {
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
     @Autowired IDisenoRepositorio disenoRepositorio;
     
     @Override
     public String guardarDiseno(DisenoModel diseno) {
         disenoRepositorio.save(diseno);
+<<<<<<< Updated upstream
         return "Se creo el diseno " + diseno.getNombreDiseno() + ".";
     }
 
@@ -32,12 +40,41 @@ public class DisenoServicioImp implements IDisenoServicio {
 	public void eliminarDiseno(Integer idDiseno) {
         if (!disenoRepositorio.existsById(idDiseno)) {
             throw new RecursoNoEncontradoExcepcion("Diseño con ID: " + idDiseno +  " no encontrado");
+=======
+        return "El diseño con el ID " + diseno.getIdDiseno() + " fue creado con éxito";
+    }
+   
+    @Override
+
+    public DisenoModel buscarDisenoXid (int idDiseno) {
+        //Optional<UsuarioModel> usuarioEncontrado = usuarioRepositorio.findOne(id);
+        Optional<DisenoModel> disenoEncontrado = disenoRepositorio.findById(idDiseno);
+        return disenoEncontrado.orElseThrow(() -> new RecursoNoEncontradoExcepcion("Diseno no encontrado por el id " + idDiseno));
+    }
+
+    @Override
+    public List<DisenoModel> obtenerTodosLosDisenos() {
+        return disenoRepositorio.findAll();
+    }
+    
+    @Override
+    public void eliminarDiseno(Integer idDiseno) {
+        if (!disenoRepositorio.existsById(idDiseno)) {
+            throw new RecursoNoEncontradoExcepcion("Diseño con ID: " +  idDiseno +  " no encontrado");
+>>>>>>> Stashed changes
         } else {
             disenoRepositorio.deleteById(idDiseno);
         }
     }
 
+<<<<<<< Updated upstream
     public DisenoModel actualizarDiseno(Integer idDiseno, DisenoModel diseno) {
+=======
+    @Override
+
+    public DisenoModel actualizarDiseno(Integer idDiseno, DisenoModel diseno) {
+        
+>>>>>>> Stashed changes
         // Verificar si el diseño existe
         Optional<DisenoModel> disenoOptional = disenoRepositorio.findById(idDiseno);
         if (disenoOptional.isPresent()) {
@@ -57,5 +94,11 @@ public class DisenoServicioImp implements IDisenoServicio {
             throw new RecursoNoEncontradoExcepcion("Diseño con ID " + idDiseno + " no encontrado");
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+}    
+
+    
+>>>>>>> Stashed changes
 
