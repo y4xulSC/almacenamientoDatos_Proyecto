@@ -1,5 +1,29 @@
 -- ----------------------------------- Eliminar ---------------------------------- --
 
+-- departamento
+DELIMITER //
+CREATE PROCEDURE eliminar_departamento(
+    IN var_id_departamento INT
+)
+BEGIN
+    DELETE FROM departamento
+    WHERE id = var_id_departamento;
+END//
+DELIMITER ;
+-- CALL nombre();
+
+-- ciudad
+DELIMITER //
+CREATE PROCEDURE eliminar_ciudad(
+    IN var_id_ciudad INT
+)
+BEGIN
+    DELETE FROM ciudad
+    WHERE id = var_id_ciudad;
+END//
+DELIMITER ;
+-- CALL nombre();
+
 -- usuario
 DELIMITER //
 CREATE PROCEDURE eliminar_usuario(
@@ -87,36 +111,13 @@ DELIMITER ;
 -- productoPedido
 DELIMITER //
 CREATE PROCEDURE eliminar_productoPedido(
-    IN var_id_pedido INT
+    IN var_id_producto_pedido INT,
+    IN var_id_pedido INT,
     IN var_id_producto INT
 )
 BEGIN
     DELETE FROM productoPedido
-    WHERE idPedido = var_id_pedido AND idProducto = var_id_producto;
-END//
-DELIMITER ;
--- CALL nombre();
-
--- departamento
-DELIMITER //
-CREATE PROCEDURE eliminar_departamento(
-    IN var_id_departamento INT
-)
-BEGIN
-    DELETE FROM departamento
-    WHERE id = var_id_departamento;
-END//
-DELIMITER ;
--- CALL nombre();
-
--- ciudad
-DELIMITER //
-CREATE PROCEDURE eliminar_ciudad(
-    IN var_id_ciudad INT
-)
-BEGIN
-    DELETE FROM ciudad
-    WHERE id = var_id_ciudad;
+    WHERE idProductoPedido = var_id_producto_pedido;
 END//
 DELIMITER ;
 -- CALL nombre();

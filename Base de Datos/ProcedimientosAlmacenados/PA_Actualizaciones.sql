@@ -1,5 +1,38 @@
 -- ------------------------------- Actualizaciones ------------------------------- --
 
+-- departamento
+DELIMITER //
+CREATE PROCEDURE actualizar_departamento(
+    IN var_idDepartamento INT,
+    IN var_nombre VARCHAR(60)
+)
+BEGIN
+    UPDATE departamento
+    SET nombre = var_nombre
+    WHERE idDepartamento = var_idDepartamento;
+END//
+DELIMITER ;
+-- CALL nombre();
+
+-- ciudad
+DELIMITER //
+CREATE PROCEDURE actualizar_ciudad(
+    IN var_idCiudad INT,
+    IN var_idDepartamento INT,
+    IN var_nombre VARCHAR(60),
+    IN var_codigoPostal INT
+)
+BEGIN
+    UPDATE ciudad
+    SET 
+        idDepartamento = var_idDepartamento,
+        nombre = var_nombre,
+        codigoPostal = var_codigoPostal
+    WHERE idCiudad = var_idCiudad;
+END//
+DELIMITER ;
+-- CALL nombre();
+
 -- usuario
 DELIMITER //
 CREATE PROCEDURE actualizar_usuario(
@@ -9,7 +42,8 @@ CREATE PROCEDURE actualizar_usuario(
     IN var_email VARCHAR(255),
     IN var_telefono BIGINT,
     IN var_edad INT,
-    IN var_sexo ENUM('Hombre', 'Mujer')
+    IN var_sexo ENUM('Hombre', 'Mujer'),
+    IN var_idCiudad INT
 )
 BEGIN
     UPDATE usuario
@@ -19,7 +53,8 @@ BEGIN
         email = var_email,
         telefono = var_telefono,
         edad = var_edad,
-        sexo = var_sexo
+        sexo = var_sexo,
+        idCiudad = var_idCiudad
     WHERE idUsuario = var_idUsuario;
 END//
 DELIMITER ;
@@ -158,6 +193,7 @@ DELIMITER ;
 -- productoPedido
 DELIMITER //
 CREATE PROCEDURE actualizar_productoPedido (
+    IN var_idProductoPedio INT,
     IN var_idPedido INT,
     IN var_idProducto INT,
     IN var_cantidadProducto INT
@@ -165,40 +201,7 @@ CREATE PROCEDURE actualizar_productoPedido (
 BEGIN
     UPDATE productoPedido
     SET cantidadProducto = var_cantidadProducto
-    WHERE var_idPedido = idPedido AND var_idProducto = idProducto;
-END//
-DELIMITER ;
--- CALL nombre();
-
--- departamento
-DELIMITER //
-CREATE PROCEDURE actualizar_departamento(
-    IN var_idDepartamento INT,
-    IN var_nombre VARCHAR(60)
-)
-BEGIN
-    UPDATE departamento
-    SET nombre = var_nombre
-    WHERE idDepartamento = var_idDepartamento;
-END//
-DELIMITER ;
--- CALL nombre();
-
--- ciudad
-DELIMITER //
-CREATE PROCEDURE actualizar_ciudad(
-    IN var_idCiudad INT,
-    IN var_idDepartamento INT,
-    IN var_nombre VARCHAR(60),
-    IN var_codigoPostal INT
-)
-BEGIN
-    UPDATE ciudad
-    SET 
-        idDepartamento = var_idDepartamento,
-        nombre = var_nombre,
-        codigoPostal = var_codigoPostal
-    WHERE idCiudad = var_idCiudad;
+    WHERE idProductoPedio = var_idProductoPedio;
 END//
 DELIMITER ;
 -- CALL nombre();

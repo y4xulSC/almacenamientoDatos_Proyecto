@@ -2,7 +2,7 @@
 
 -- usuario x productos comprados
 DELIMITER //
-CREATE PROCEDURE compraProductosXusuario () -- colocar variables necesarias
+CREATE PROCEDURE compraProductosXusuario ()
 BEGIN
     SELECT 
         u.nombreUsuario AS 'Nombre de usuario',
@@ -12,16 +12,15 @@ BEGIN
         usuario u
         INNER JOIN pedido p ON u.idUsuario = p.idUsuario
         INNER JOIN productoPedido pp ON p.idPedido = pp.idPedido
-    -- WHERE u.nombreUsuario LIKE CONCAT('%', u_nombreUsuario, '%')
     GROUP BY 
         u.nombreUsuario;
 END//
 DELIMITER ;
-CALL proyecto.compraProductosXusuario('y4xul');
+CALL compraProductosXusuario();
 
 -- creacion de factura 
 DELIMITER // 
-CREATE PROCEDURE cracionFactura ()
+CREATE PROCEDURE creacionFactura ()
 BEGIN
     SELECT 
         p.idPedido AS 'Número de Pedido',
@@ -47,10 +46,11 @@ BEGIN
         INNER JOIN detalleEnvio d ON p.idPedido = d.idPedido
         INNER JOIN ciudad c ON d.idCiudad = c.idCiudad
         INNER JOIN departamento depto ON c.idDepartamento = depto.idDepartamento
-    -- WHERE p.idPedido = Numero_pedido;
+    -- WHERE p.idPedido = Numero_pedido
+    ;
 END//
 DELIMITER ;
-CALL cracionFactura(1);
+CALL creacionFactura();
 
 -- Productos mas caro 
 DELIMITER //
@@ -83,7 +83,7 @@ BEGIN
         SUM(pp.cantidadProducto) DESC;
 END //
 DELIMITER ;
-CALL producto_mas_vendido();
+CALL productos_mas_vendido();
 
 --Productos más vendido por Ciudad
 DELIMITER //
@@ -136,7 +136,7 @@ BEGIN
     GROUP BY 
         d.categoria;
 END //
-DELIMITER //
+DELIMITER ;
 CALL total_ventas_categoria();
 
 -- Clientes con más pedidos
@@ -178,7 +178,7 @@ CALL Ventas_por_ciudad();
 
 -- Total de ventas por mes
 DELIMITER // 
-CREATE PROCEDURE entas_por_Mes()
+CREATE PROCEDURE ventas_por_Mes()
 BEGIN
     SELECT 
         MONTHNAME(p.fechaHoraPedido) AS 'Mes',

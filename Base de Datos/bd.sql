@@ -1,6 +1,21 @@
 CREATE DATABASE Proyecto;
 USE Proyecto;
 
+CREATE TABLE IF NOT EXISTS departamento (
+	idDepartamento INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(60) NOT NULL,
+	PRIMARY KEY (idDepartamento)
+);
+
+CREATE TABLE IF NOT EXISTS ciudad (
+	idCiudad INT NOT NULL AUTO_INCREMENT,
+	idDepartamento INT NOT NULL,
+	nombre VARCHAR(60),
+	codigoPostal INT NOT NULL,
+	PRIMARY KEY (idCiudad),
+	FOREIGN KEY (idDepartamento) REFERENCES departamento(idDepartamento)
+);
+
 CREATE TABLE IF NOT EXISTS usuario (
     idUsuario INT NOT NULL AUTO_INCREMENT,
     nombreUsuario VARCHAR(100) UNIQUE,
@@ -9,7 +24,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     telefono BIGINT NOT NULL,
     edad INT NOT NULL,
     sexo ENUM('Hombre', 'Mujer') NOT NULL,
-    PRIMARY KEY (idUsuario)
+	idCiudad INT NOT NULL,
+    PRIMARY KEY (idUsuario),
+	FOREIGN KEY (idCiudad) REFERENCES ciudad(idCiudad)
 );
 
 CREATE TABLE IF NOT EXISTS rol (
@@ -80,28 +97,13 @@ CREATE TABLE IF NOT EXISTS pedido (
 );
 
 CREATE TABLE IF NOT EXISTS productoPedido (
+	idProductoPedio INT NOT NULL AUTO_INCREMENT,
 	idPedido INT NOT NULL,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    PRIMARY KEY (idProducto, idPedido),
+    PRIMARY KEY (idProductoPedio),
     FOREIGN KEY (idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
-);
--- DROP TABLE productoPedido;
-
-CREATE TABLE IF NOT EXISTS departamento (
-	idDepartamento INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(60) NOT NULL,
-	PRIMARY KEY (idDepartamento)
-);
-
-CREATE TABLE IF NOT EXISTS ciudad (
-	idCiudad INT NOT NULL AUTO_INCREMENT,
-	idDepartamento INT NOT NULL,
-	nombre VARCHAR(60),
-	codigoPostal INT NOT NULL,
-	PRIMARY KEY (idCiudad),
-	FOREIGN KEY (idDepartamento) REFERENCES departamento(idDepartamento)
 );
 
 CREATE TABLE IF NOT EXISTS detalleEnvio (

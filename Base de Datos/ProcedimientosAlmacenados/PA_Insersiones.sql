@@ -1,5 +1,37 @@
 -- --------------------------------- Insersiones --------------------------------- --
 
+-- departamento
+DELIMITER //
+CREATE PROCEDURE insertar_departamento(
+    IN var_nombre VARCHAR(60)
+)
+BEGIN
+    INSERT INTO departamento(nombre)
+    VALUES (var_nombre);
+END//
+DELIMITER ;
+CALL insertar_departamento("Antioquia");
+CALL insertar_departamento("Barranquilla");
+CALL insertar_departamento("Cundinamarca");
+CALL insertar_departamento("Valle del Cauca");
+
+-- ciudad
+DELIMITER //
+CREATE PROCEDURE insertar_ciudad(
+    IN var_idDepartamento INT,
+    IN var_nombre VARCHAR(60),
+    IN var_codigoPostal INT
+)
+BEGIN
+    INSERT INTO ciudad(idDepartamento, nombre, codigoPostal)
+    VALUES (var_idDepartamento, var_nombre, var_codigoPostal);
+END//
+DELIMITER ;
+CALL insertar_ciudad(1, "Medellín", 11);
+CALL insertar_ciudad(2, "Barranquilla", 22);
+CALL insertar_ciudad(3, "Bogotá", 33);
+CALL insertar_ciudad(4, "Cali", 44);
+
 -- usuario
 DELIMITER //
 CREATE PROCEDURE insertar_usuario(
@@ -8,14 +40,15 @@ CREATE PROCEDURE insertar_usuario(
     IN var_email VARCHAR(255),
     IN var_telefono BIGINT,
     IN var_edad INT,
-    IN var_sexo ENUM('Hombre', 'Mujer')
+    IN var_sexo ENUM('Hombre', 'Mujer'),
+    IN var_idCiudad INT
 )
 BEGIN
-    INSERT INTO usuario (nombreUsuario, nombre, email, telefono, edad, sexo)
-    VALUES (var_nombreUsuario, var_nombre, var_email, var_telefono, var_edad, var_sexo);
+    INSERT INTO usuario (nombreUsuario, nombre, email, telefono, edad, sexo, idCiudad)
+    VALUES (var_nombreUsuario, var_nombre, var_email, var_telefono, var_edad, var_sexo, var_idCiudad);
 END//
 DELIMITER ;
-CALL InsertarUsuario('nombre_de_usuario', 'nombre del usuario', 'email@uao.edu.co', 1234567890, 25, 'Hombre');
+CALL insertar_usuario('nombre_de_usuario', 'nombre del usuario', 'email@uao.edu.co', 1234567890, 25, 'Hombre', 1);
 
 -- rol
 DELIMITER //
@@ -123,38 +156,6 @@ BEGIN
 END//
 DELIMITER ;
 CALL insertar_productoPedido(1, 1, 1);
-
--- departamento
-DELIMITER //
-CREATE PROCEDURE insertar_departamento(
-    IN var_nombre VARCHAR(60)
-)
-BEGIN
-    INSERT INTO departamento(nombre)
-    VALUES (var_nombre);
-END//
-DELIMITER ;
-CALL insertar_departamento("Antioquia");
-CALL insertar_departamento("Barranquilla");
-CALL insertar_departamento("Cundinamarca");
-CALL insertar_departamento("Valle del Cauca");
-
--- ciudad
-DELIMITER //
-CREATE PROCEDURE insertar_ciudad(
-    IN var_idDepartamento INT,
-    IN var_nombre VARCHAR(60),
-    IN var_codigoPostal INT
-)
-BEGIN
-    INSERT INTO ciudad(idDepartamento, nombre, codigoPostal)
-    VALUES (var_idDepartamento, var_nombre, var_codigoPostal);
-END//
-DELIMITER ;
-CALL insertar_ciudad(1, "Medellín", 11);
-CALL insertar_ciudad(2, "Barranquilla", 22);
-CALL insertar_ciudad(3, "Bogotá", 33);
-CALL insertar_ciudad(4, "Cali", 44);
 
 -- detalleEnvio
 DELIMITER //

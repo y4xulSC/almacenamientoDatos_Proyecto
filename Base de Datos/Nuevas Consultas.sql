@@ -213,16 +213,3 @@ FROM
 GROUP BY 
     DAYNAME(fechaHoraPedido);
 
-
--- Promedio de duración del envío por ciudad
--- SELECT 
---     c.nombre AS 'Ciudad',
---     AVG(TIMESTAMPDIFF(DAY, p.fechaHoraPedido, de.fechaHoraEntrega)) AS 'Promedio de Duración del Envío (Días)'
--- FROM 
---     ciudad c
---     INNER JOIN detalleEnvio de ON c.idCiudad = de.idCiudad
---     INNER JOIN pedido p ON de.idPedido = p.idPedido
--- WHERE 
---     p.fechaHoraEntrega IS NOT NULL
--- GROUP BY 
---     c.nombre;
