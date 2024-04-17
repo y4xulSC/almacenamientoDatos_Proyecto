@@ -2,14 +2,9 @@ package com.proyectoBackend.Api.Modelo;
 
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-<<<<<<< Updated upstream
 import com.proyectoBackend.Api.Modelo.Enum.Rol;
 
 //import com.fasterxml.jackson.annotation.JsonBackReference;
-=======
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.proyectoBackend.Enum.Rol;
->>>>>>> Stashed changes
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

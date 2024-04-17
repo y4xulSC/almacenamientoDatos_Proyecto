@@ -6,7 +6,6 @@ import com.proyectoBackend.Api.Modelo.ProductoModel;
 
 public interface IProductoServicio {
     String guardarProducto(ProductoModel producto);
-<<<<<<< Updated upstream
 
     ProductoModel buscarProductoXid(int idProducto);
 
@@ -16,6 +15,3 @@ public interface IProductoServicio {
 
     ProductoModel actualizarProducto(Integer idProducto, ProductoModel producto);
 }
-=======
-}
->>>>>>> Stashed changes

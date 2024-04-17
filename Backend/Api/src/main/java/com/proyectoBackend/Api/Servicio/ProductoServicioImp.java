@@ -1,6 +1,5 @@
 package com.proyectoBackend.Api.Servicio;
 
-<<<<<<< Updated upstream
 import java.util.List;
 import java.util.Optional;
 
@@ -10,18 +9,11 @@ import org.springframework.stereotype.Service;
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
 import com.proyectoBackend.Api.Modelo.ProductoModel;
 import com.proyectoBackend.Api.Repositorio.IDisenoRepositorio;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.proyectoBackend.Api.Modelo.ProductoModel;
->>>>>>> Stashed changes
 import com.proyectoBackend.Api.Repositorio.IProductoRepositorio;
 
 @Service
 public class ProductoServicioImp implements IProductoServicio {
     @Autowired IProductoRepositorio productoRepositorio;
-<<<<<<< Updated upstream
 	@Autowired IDisenoRepositorio disenoRepositorio;
 
     @Override
@@ -74,12 +66,3 @@ public class ProductoServicioImp implements IProductoServicio {
         }
     }
 }
-=======
-
-    @Override
-    public String guardarProducto(ProductoModel producto) {
-        return null;
-    }
-}
-
->>>>>>> Stashed changes
