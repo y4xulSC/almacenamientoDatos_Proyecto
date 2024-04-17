@@ -774,7 +774,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "ActualizarProducto",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -1121,7 +1121,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/pedido/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"pedido",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -1129,10 +1139,20 @@
 				{
 					"name": "EliminarPedidos",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/pedido/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"pedido",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -1144,7 +1164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"ENVIADO\",\r\n    \"total\": 50.99,\r\n    \"usuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
+							"raw": "{\r\n    \"fechaHoraPedido\": \"2024-04-16T12:00:00\",\r\n    \"estado\": \"ENVIADO\",\r\n    \"total\": 50.99,\r\n    \"idUsuario\": {\r\n        \"idUsuario\": 1\r\n    }\r\n    \r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1173,7 +1193,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/pedido/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"pedido",
+								"1"
+							]
 						}
 					},
 					"response": []
@@ -1219,7 +1249,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
+							"raw": "http://localhost:8080/proyecto/productoPedido/1/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"proyecto",
+								"productoPedido",
+								"1",
+								"1"
+							]
 						}
 					},
 					"response": []

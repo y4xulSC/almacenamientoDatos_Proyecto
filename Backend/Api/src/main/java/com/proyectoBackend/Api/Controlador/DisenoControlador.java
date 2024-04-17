@@ -53,7 +53,7 @@ public class DisenoControlador {
     public ResponseEntity<?> eliminarDiseno(@PathVariable int idDiseno) {
         try {
             disenoServicio.eliminarDiseno(idDiseno);
-            return ResponseEntity.ok("Usuario con ID " + idDiseno + " eliminado correctamente");
+            return ResponseEntity.ok("Diseño con ID " + idDiseno + " eliminado correctamente");
         } catch (RecursoNoEncontradoExcepcion e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
