@@ -83,10 +83,11 @@ CREATE TABLE IF NOT EXISTS productoPedido (
 	idPedido INT NOT NULL,
     idProducto INT NOT NULL,
     cantidadProducto INT NOT NULL,
-    PRIMARY KEY (idPedido, idProducto),
+    PRIMARY KEY (idProducto, idPedido),
     FOREIGN KEY (idPedido) REFERENCES pedido(idPedido),
     FOREIGN KEY (idProducto) REFERENCES producto(idProducto)
 );
+-- DROP TABLE productoPedido;
 
 CREATE TABLE IF NOT EXISTS departamento (
 	idDepartamento INT NOT NULL AUTO_INCREMENT,

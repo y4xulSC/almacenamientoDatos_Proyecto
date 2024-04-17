@@ -1,5 +1,6 @@
 package com.proyectoBackend.Api.Servicio;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyectoBackend.Api.Excepcion.RecursoNoEncontradoExcepcion;
+import com.proyectoBackend.Api.Excepcion.RecursoYaExistente;
 import com.proyectoBackend.Api.Modelo.PromocionesModel;
 import com.proyectoBackend.Api.Repositorio.IProductoRepositorio;
 import com.proyectoBackend.Api.Repositorio.IPromocionesRepositorio;
@@ -18,9 +20,25 @@ public class PromocionesServicioImp  implements IPromocionesServicio {
 
     @Override
     public String guardarPromocion(PromocionesModel promocion) {
+    
+    // Obtener el ID del producto y la fecha de la promoción
+    Integer idProducto = promocion.getIdProducto().getIdProducto();
+    LocalDate fechaInicio = promocion.getFechaInicio();
+    LocalDate fechaFin = promocion.getFechaFin();
+
+    // Verificar si ya existe una promoción para el mismo producto en la misma fecha
+    boolean existePromocion = promocionesRepositorio.existePromocion(idProducto, fechaInicio, fechaFin);
+
+    if (existePromocion) {
+        throw new RecursoYaExistente("Ya existe una promoción para el producto con ID " + idProducto + " en la misma fecha");
+    } else {
+        // Guardar la promoción en la base de datos si no existe otra promoción para el mismo producto en la misma fecha
         promocionesRepositorio.save(promocion);
-        return "Fue aplicada la promocion " + promocion.getDescuento() + " al producto con ID " + promocion.getIdProducto() + ".";
+        return "Fue aplicada la promoción " + promocion.getDescuento() + " al producto con ID " + idProducto + ".";
     }
+}
+
+
 
     public PromocionesModel buscarPromocionPorId(int idPromocion) {
         Optional<PromocionesModel> promocionEncontrada = promocionesRepositorio.findById(idPromocion);

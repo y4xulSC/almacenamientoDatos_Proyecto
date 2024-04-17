@@ -1,5 +1,6 @@
 package com.proyectoBackend.Api.Modelo;
 
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EnableJpaRepositories
+
 public class PedidoModel {
     
     @Id
@@ -42,6 +45,7 @@ public class PedidoModel {
 
     private Float total;
 
-   
+    //@OneToMany(mappedBy = "idPedido")
+    //private List<ProductoPedidoModel> pedidos;
 }
 

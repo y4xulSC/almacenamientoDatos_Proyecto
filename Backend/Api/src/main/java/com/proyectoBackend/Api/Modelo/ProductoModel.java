@@ -48,4 +48,7 @@ public class ProductoModel {
     @ManyToOne
     @JoinColumn(name = "idDiseno", referencedColumnName = "idDiseno")
     private DisenoModel idDiseno;
+
+    //@OneToMany(mappedBy = "idProducto")
+    //private List<ProductoPedidoModel> productos;
 }
